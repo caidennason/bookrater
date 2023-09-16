@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import  Button  from 'react-bootstrap/Button';
+import React from "react";
+import NavBar from "./Home/NavBar";
 
 function App() {
   return (
-    <div className="App">
-      <Button variant='primary'>HiI</Button>
+    <div>
+      <NavBar />
+      Hi
     </div>
   );
 }
