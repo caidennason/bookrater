@@ -19,12 +19,14 @@ function NavBar(){
                 <Navbar.Brand href="/">Bookrater</Navbar.Brand>
                 <Nav class-name="me-auto">
                     <Nav.Link href="/logout">Logout</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
         <Routes>
             <Route path='/' element={<HomePage />}/>
             <Route path="/logout" element={<Logout />} />
+            <Route path="/login" element={<Login />} />
         </Routes>
     </div>
     )
