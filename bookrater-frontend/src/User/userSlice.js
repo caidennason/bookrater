@@ -9,27 +9,38 @@ export const signup = createAsyncThunk("users/signup", (user) => {
         }, 
         body: JSON.stringify(user)
     })
-        .then((res) => res.json())
+        .then((res) => {
+            if (!res.ok) {
+                return res.json()
+                .then((errorData) => {
+                    throw new Error(errorData.error)
+                })
+            }
+            return res.json()
+        })
         .then((data) => data)
+        // .then((res) => res.json())
+        // .then((data) => data)
 })
 
 const userSlice = createSlice({
     name: "users",
     initialState:{
         entities: [],
-        status: ''
+        status: '',
+        currentUser: null
     } ,
     reducers: {
 
     },
     extraReducers: {
         [signup.fulfilled](state, action){
-            // state.entities.push(action.payload)
-            // state.status = 'Successfully Signed Up'
-            // console.log(state.status)
-            // console.log(state.entities)
             console.log(action.payload)
             state.entities.push(action.payload)
+            state.currentUser = action.payload
+        },
+        [signup.rejected](state, action){
+            state.status = "Make sure to fill out all fields."
         }
     }
 })

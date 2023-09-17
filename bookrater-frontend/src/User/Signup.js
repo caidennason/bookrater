@@ -8,7 +8,11 @@ function Signup(){
 
     const dispatch = useDispatch()
     const state = useSelector((state) => state.users.entities)
+    const currentUser = useSelector((state) => state.users.currentUser)
+    const errorMessage = useSelector((state) => state.users.status)
+    console.log(errorMessage)
     console.log(state)
+    console.log(currentUser)
     
     const [name, setName] = useState('')
     const [aboutMe, setAboutMe] = useState('')
@@ -17,27 +21,22 @@ function Signup(){
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
     const handleNameChange = (e) => {
-        console.log(e.target.value)
         setName(e.target.value)
     }
 
     const handleAboutMeChange = (e) => {
-        console.log(e.target.value)
         setAboutMe(e.target.value)
     }
 
     const handleLocationChange = (e) => {
-        console.log(e.target.value)
         setLocation(e.target.value)
     }
 
     const handlePasswordChange = (e) => {
-        console.log(e.target.value)
         setPassword(e.target.value)
     }
 
     const handlePasswordConfirmationChange = (e) => {
-        console.log(e.target.value)
         setPasswordConfirmation(e.target.value)
     }
 
@@ -50,7 +49,6 @@ function Signup(){
     }
 
     const reset = () => {
-        console.log('resetting')
         setName('')
         setAboutMe('')
         setLocation('')
@@ -60,8 +58,13 @@ function Signup(){
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(userObject)
         dispatch(signup(userObject))
+        .then((data) => {
+            if (data.error) {
+                console.log(data.error)
+                alert(data.error.message)
+            }
+        })
         reset()
     }
 
