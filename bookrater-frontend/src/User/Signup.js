@@ -59,16 +59,17 @@ function Signup(){
     }
 
     return(
-        <Form onSubmit={handleSubmit} class='w-25 mx-auto'>
-            <h3>Sign up for Bookrater</h3>
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+        <div className="d-flex justify-content-center align-items-center vh-100">
+        <Form onSubmit={handleSubmit} className="w-50 p-4 rounded">
+            <h3 className="mb-4 text-center">Sign up for Bookrater</h3>
+            <Form.Group className="mb-3" controlId="name">
             <Form.Control 
                 onChange={handleNameChange}
                 placeholder="Name"
                 value={name}
             />
-            {/* </Form.Group> */}
-            <br></br>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="name">
             <Form.Control 
                 onChange={handleAboutMeChange}
                 placeholder="Tell us a bit about yourself"
@@ -76,29 +77,33 @@ function Signup(){
                 rows={3}
                 value={aboutMe}
             />
-            <br></br>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="name">
             <Form.Control
                 onChange={handleLocationChange}
                 placeholder="Location"
                 value={location}
             />
-            <br></br>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="name">
             <Form.Control 
                 onChange={handlePasswordChange}
                 type="password"
                 placeholder="Password"
                 value={password}
             />
-            <br></br>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="name">
             <Form.Control 
                 onChange={handlePasswordConfirmationChange}
                 type="password"
                 placeholder="Confirm password"
                 value={passwordConfirmation}
             />
-            <br></br>
+            </Form.Group>
             <Button type="submit">Submit</Button>
         </Form>
+        </div>
     )
 }
 
