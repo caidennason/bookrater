@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import HomePage from "./HomePage";
 import Login from "../User/Login";
 import Logout from "../User/Logout";
+import Signup from "../User/Signup";
 
 function NavBar(){
 
@@ -20,6 +21,7 @@ function NavBar(){
                 <Nav class-name="me-auto">
                     <Nav.Link href="/logout">Logout</Nav.Link>
                     <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav.Link href="/signup">Signup</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
@@ -27,6 +29,7 @@ function NavBar(){
             <Route path='/' element={<HomePage />}/>
             <Route path="/logout" element={<Logout />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
         </Routes>
     </div>
     )
