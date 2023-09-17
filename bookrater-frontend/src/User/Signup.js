@@ -70,7 +70,7 @@ function Signup(){
             <Form.Group className="mb-3" controlId="name">
             <Form.Control 
                 onChange={handleNameChange}
-                placeholder="Name"
+                placeholder="Username"
                 value={name}
             />
             </Form.Group>

@@ -4,7 +4,7 @@ function HomePage(){
 
     return(
         <div>
-            
+            Recreating my first project for Flatiron using React and Ruby on Rails.
         </div>
     )
 }
