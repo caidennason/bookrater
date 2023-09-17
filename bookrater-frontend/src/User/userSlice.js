@@ -29,7 +29,7 @@ const userSlice = createSlice({
             // console.log(state.status)
             // console.log(state.entities)
             console.log(action.payload)
-            // state.entities.push(action.payload)
+            state.entities.push(action.payload)
         }
     }
 })
