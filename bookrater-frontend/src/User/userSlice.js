@@ -23,6 +23,19 @@ export const signup = createAsyncThunk("users/signup", (user) => {
         // .then((data) => data)
 })
 
+export const login = createAsyncThunk("users/login", (user) => {
+    return fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+    .then((res) => res.json())
+    .then((data) => data)
+})
+
 const userSlice = createSlice({
     name: "users",
     initialState:{
@@ -41,6 +54,9 @@ const userSlice = createSlice({
         },
         [signup.rejected](state, action){
             state.status = "Make sure to fill out all fields."
+        },
+        [login.fulfilled](state, action){
+            console.log(action.payload)
         }
     }
 })

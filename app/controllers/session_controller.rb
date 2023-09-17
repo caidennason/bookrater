@@ -1,4 +1,4 @@
-class SessionController < ActionController
+class SessionController < ApplicationController
     #put auth here after
     def create
         user = User.find_by(name: params[:name])

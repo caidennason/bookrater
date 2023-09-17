@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import { login } from "./userSlice";
 
 function Login(){
 
@@ -13,12 +14,10 @@ function Login(){
     const [password, setPassword] = useState('')
 
     const handleNameChange = (e) => {
-        console.log(e.target.value)
         setName(e.target.value)
     }
 
     const handlePasswordChange = (e) => {
-        console.log(e.target.value)
         setPassword(e.target.value)
     }
 
@@ -34,7 +33,7 @@ function Login(){
 
     const handleLogin = (e) => {
         e.preventDefault()
-        console.log(loginObject)
+        dispatch(login(loginObject))
         reset()
     }
 
