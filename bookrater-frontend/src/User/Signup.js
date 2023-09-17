@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from './userSlice';
+import SignupErrorModal from './SignupErrorModal';
 
 function Signup(){
 
@@ -19,6 +20,8 @@ function Signup(){
     const [location, setLocation] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    const [showModal, setShowModal] = useState(false)
+
 
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -62,7 +65,8 @@ function Signup(){
         .then((data) => {
             if (data.error) {
                 console.log(data.error)
-                alert(data.error.message)
+                setShowModal(true)
+                // alert(data.error.message)
             }
         })
         reset()
@@ -113,6 +117,7 @@ function Signup(){
             </Form.Group>
             <Button type="submit">Submit</Button>
         </Form>
+        { showModal && <SignupErrorModal error={errorMessage} showModal={showModal} setShowModal={setShowModal}/>}
         </div>
     )
 }
