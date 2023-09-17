@@ -43,10 +43,19 @@ function Signup(){
         password_confirmation: passwordConfirmation
     }
 
+    const reset = () => {
+        console.log('resetting')
+        setName('')
+        setAboutMe('')
+        setLocation('')
+        setPassword('')
+        setPasswordConfirmation('')
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('test submit')
         console.log(userObject)
+        reset()
     }
 
     return(
@@ -55,28 +64,33 @@ function Signup(){
             <Form.Control 
                 onChange={handleNameChange}
                 placeholder="Name"
+                value={name}
             />
             <br></br>
             <Form.Control 
                 onChange={handleAboutMeChange}
                 placeholder="Tell us a bit about yourself"
+                value={aboutMe}
             />
             <br></br>
             <Form.Control
                 onChange={handleLocationChange}
                 placeholder="Location"
+                value={location}
             />
             <br></br>
             <Form.Control 
                 onChange={handlePasswordChange}
                 type="password"
                 placeholder="Password"
+                value={password}
             />
             <br></br>
             <Form.Control 
                 onChange={handlePasswordConfirmationChange}
                 type="password"
                 placeholder="Confirm password"
+                value={passwordConfirmation}
             />
             <br></br>
             <Button type="submit">Submit</Button>
