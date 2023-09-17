@@ -16,13 +16,21 @@ export const signup = createAsyncThunk("users/signup", (user) => {
 const userSlice = createSlice({
     name: "users",
     initialState:{
-        enitities: []
+        entities: [],
+        status: ''
     } ,
     reducers: {
 
     },
     extraReducers: {
-
+        [signup.fulfilled](state, action){
+            // state.entities.push(action.payload)
+            // state.status = 'Successfully Signed Up'
+            // console.log(state.status)
+            // console.log(state.entities)
+            console.log(action.payload)
+            // state.entities.push(action.payload)
+        }
     }
 })
 

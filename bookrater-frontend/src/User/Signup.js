@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signup } from './userSlice';
 
 function Signup(){
 
     const dispatch = useDispatch()
+    const state = useSelector((state) => state.users.entities)
+    console.log(state)
     
     const [name, setName] = useState('')
     const [aboutMe, setAboutMe] = useState('')
