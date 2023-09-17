@@ -59,17 +59,21 @@ function Signup(){
     }
 
     return(
-        <Form onSubmit={handleSubmit}>
-            <Form.Label>Sign up for Bookrater</Form.Label>
+        <Form onSubmit={handleSubmit} class='w-25 mx-auto'>
+            <h3>Sign up for Bookrater</h3>
+            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
             <Form.Control 
                 onChange={handleNameChange}
                 placeholder="Name"
                 value={name}
             />
+            {/* </Form.Group> */}
             <br></br>
             <Form.Control 
                 onChange={handleAboutMeChange}
                 placeholder="Tell us a bit about yourself"
+                as="textarea"
+                rows={3}
                 value={aboutMe}
             />
             <br></br>
