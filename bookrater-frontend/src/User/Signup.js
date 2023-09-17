@@ -60,7 +60,7 @@ function Signup(){
 
     return(
         <div className="d-flex justify-content-center align-items-center vh-100">
-        <Form onSubmit={handleSubmit} className="w-50 p-4 rounded">
+        <Form onSubmit={handleSubmit} className="w-50 p-4 rounded bg-light rounded shadow">
             <h3 className="mb-4 text-center">Sign up for Bookrater</h3>
             <Form.Group className="mb-3" controlId="name">
             <Form.Control 
