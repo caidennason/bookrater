@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
+import { useDispatch } from 'react-redux';
+import { signup } from './userSlice';
 
 function Signup(){
 
+    const dispatch = useDispatch()
+    
     const [name, setName] = useState('')
     const [aboutMe, setAboutMe] = useState('')
     const [location, setLocation] = useState('')
@@ -55,6 +59,7 @@ function Signup(){
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(userObject)
+        dispatch(signup(userObject))
         reset()
     }
 

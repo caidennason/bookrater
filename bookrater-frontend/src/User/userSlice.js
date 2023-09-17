@@ -9,8 +9,7 @@ export const signup = createAsyncThunk("users/signup", (user) => {
         }, 
         body: JSON.stringify(user)
     })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
+        .then((res) => console.log(res))
 })
 
 const userSlice = createSlice({
