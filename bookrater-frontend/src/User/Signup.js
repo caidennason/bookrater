@@ -12,26 +12,45 @@ function Signup(){
 
     const handleNameChange = (e) => {
         console.log(e.target.value)
+        setName(e.target.value)
     }
 
     const handleAboutMeChange = (e) => {
         console.log(e.target.value)
+        setAboutMe(e.target.value)
     }
 
     const handleLocationChange = (e) => {
         console.log(e.target.value)
+        setLocation(e.target.value)
     }
 
     const handlePasswordChange = (e) => {
         console.log(e.target.value)
+        setPassword(e.target.value)
     }
 
     const handlePasswordConfirmationChange = (e) => {
         console.log(e.target.value)
+        setPasswordConfirmation(e.target.value)
+    }
+
+    const userObject = {
+        name: name,
+        about_me: aboutMe,
+        location: location,
+        password: password,
+        password_confirmation: passwordConfirmation
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('test submit')
+        console.log(userObject)
     }
 
     return(
-        <div>
+        <Form onSubmit={handleSubmit}>
             <Form.Label>Sign up for Bookrater</Form.Label>
             <Form.Control 
                 onChange={handleNameChange}
@@ -60,8 +79,8 @@ function Signup(){
                 placeholder="Confirm password"
             />
             <br></br>
-            <Button>Submit</Button>
-        </div>
+            <Button type="submit">Submit</Button>
+        </Form>
     )
 }
 
