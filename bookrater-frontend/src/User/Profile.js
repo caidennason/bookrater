@@ -10,7 +10,9 @@ function Profile(){
     return(
 
         <>
-           {currentUser ? `Hi ${currentUser.name}` : ' '}
+           <p>Welcome, {currentUser.name}!</p>
+            <p>{currentUser.about_me}</p>
+            <p>{currentUser.location}</p>
         </>
     )
 }
