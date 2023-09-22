@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 
-
-
 export const getUsers = createAsyncThunk("users/getUsers", () => {
     return fetch('/users')
     .then((res) => res.json())
