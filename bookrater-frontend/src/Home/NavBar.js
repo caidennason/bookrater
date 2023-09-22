@@ -12,6 +12,7 @@ import Signup from "../User/Signup";
 import Profile from "../User/Profile";
 import { logout } from "../User/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import BookSearch from "../Books/BookSearch";
 
 function NavBar(){
 
@@ -38,6 +39,7 @@ function NavBar(){
                     <Nav.Link href="/signup">Signup</Nav.Link>
                     <Nav.Link href="/homepage">Home</Nav.Link>
                     {currentUser ? <Nav.Link href="/profile">Profile</Nav.Link> : ' '}
+                    {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : ' '}
                     {/* {currentUser ? <Nav.Link onClick={signout}>Logout</Nav.Link> : ''} */}
                 </Nav>
             </Container>
@@ -49,6 +51,7 @@ function NavBar(){
             <Route path="/signup" element={<Signup />} />
             <Route path="/homepage" element={<HomePage/>}/>
             <Route path="/profile" element={<Profile /> }/> 
+            <Route path="/booksearch" element={<BookSearch /> }/> 
         </Routes>
     </div>
     )
