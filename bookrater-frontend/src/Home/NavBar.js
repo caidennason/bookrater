@@ -22,7 +22,6 @@ function NavBar(){
     const signout = () => {
         dispatch(logout())
         navigate('/login')
-        console.log(' hello ')
     }
 
     return(

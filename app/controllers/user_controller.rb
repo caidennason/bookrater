@@ -7,11 +7,16 @@ class UserController < ApplicationController
     end
 
     def create 
-        user = User.create(user_params)
-        if user.valid? 
-            render json: user 
+        if params[:password] == params[:password_confirmation]
+            user = User.create(user_params)
+                if user.valid? 
+                    session[:user_id] = user.id
+                    render json: user, status: :created
+                else
+                    render json: {error: "Make sure everything is completed"}, status: :unprocessable_entity 
+                end
         else
-            render json: {error: "Make sure everything is completed"}, status: :unprocessable_entity 
+            render json: {error: "Passwords must match."}, status: :unprocessable_entity
         end
     end
 

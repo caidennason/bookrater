@@ -4,10 +4,12 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from './userSlice';
 import SignupErrorModal from './SignupErrorModal';
+import { useNavigate } from 'react-router-dom';
 
 function Signup(){
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const state = useSelector((state) => state.users.entities)
     const currentUser = useSelector((state) => state.users.currentUser)
     const errorMessage = useSelector((state) => state.users.status)
@@ -68,6 +70,7 @@ function Signup(){
                 // alert(data.error.message)
             }
         })
+        navigate('/profile')
         reset()
     }
 

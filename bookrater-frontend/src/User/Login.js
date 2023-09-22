@@ -50,7 +50,7 @@ function Login(){
                 alert(data.error)
             } else {
                 console.log('logged in')
-                // navigate('/homepage')
+                navigate('/profile')
             }
         })
         reset()

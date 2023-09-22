@@ -11,25 +11,13 @@ function App() {
   const currentUser = useSelector((state) => state.users.currentUser)
   const dispatch = useDispatch()
 
-  console.log(currentUser)
-
   useEffect(() => {
     dispatch(getCurrentUser())
   }, [dispatch])
 
-  const navigate = useNavigate()
-
-
-  const signout = () => {
-    dispatch(logout())
-    navigate('/login')
-    console.log(' hello ')
-}
-
   return (
     <div>
       <NavBar />
-      {currentUser? <Button onClick={signout}>Signout</Button> : ''}
     </div>
   );
 }

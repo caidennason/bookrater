@@ -83,17 +83,12 @@ const userSlice = createSlice({
         },
         [login.fulfilled](state, action){
             state.currentUser = action.payload 
-            console.log(action.payload)
-            // localStorage.setItem("currentUser", action.payload.name)
-            console.log(state.currentUser)
-            console.log(action.payload)
         }, 
         [getCurrentUser.fulfilled](state, action) {
             state.currentUser = action.payload
         },
         [logout.fulfilled](state, action) {
             state.currentUser = null
-            console.log('Logging out from the slice', action)
         }
     } 
 })
