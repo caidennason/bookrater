@@ -1,0 +1,386 @@
+diff --git a/Gemfile b/Gemfile
+index f5bdf1d..167abc3 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -29,6 +29,8 @@ gem "jbuilder"
+ 
+ gem 'rack-cors'
+ 
++gem 'byebug', '~> 11.1', '>= 11.1.3'
++
+ # Use Redis adapter to run Action Cable in production
+ # gem "redis", "~> 4.0"
+ 
+diff --git a/Gemfile.lock b/Gemfile.lock
+index 9235bea..781a6e6 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -78,6 +78,7 @@ GEM
+     bootsnap (1.16.0)
+       msgpack (~> 1.2)
+     builder (3.2.4)
++    byebug (11.1.3)
+     capybara (3.39.2)
+       addressable
+       matrix
+@@ -238,6 +239,7 @@ DEPENDENCIES
+   active_model_serializers (~> 0.10.12)
+   bcrypt (~> 3.1.7)
+   bootsnap
++  byebug (~> 11.1, >= 11.1.3)
+   capybara
+   debug
+   image_processing (~> 1.2)
+diff --git a/app/controllers/application_controller.rb b/app/controllers/application_controller.rb
+index 22672e1..8e6d2b2 100644
+--- a/app/controllers/application_controller.rb
++++ b/app/controllers/application_controller.rb
+@@ -5,12 +5,12 @@ class ApplicationController < ActionController::API
+     #     !!session[:user_id]
+     # end
+ 
+-    # def current_user
+-    #     User.find_by_id(session[:user_id])
+-    # end
++    def current_user
++        User.find_by_id(session[:user_id])
++    end
+ 
+     # def authorized
+-    #     render json: { error: "Make sure to login first!", status: :unauthorized unless logged_in? }
++    #     render json: { error: "Make sure to login first!" }, status: :unauthorized unless logged_in? 
+     # end
+ 
+ end
+diff --git a/app/controllers/session_controller.rb b/app/controllers/session_controller.rb
+index 47fdeec..067f004 100644
+--- a/app/controllers/session_controller.rb
++++ b/app/controllers/session_controller.rb
+@@ -1,3 +1,5 @@
++
++
+ class SessionController < ApplicationController
+     #put auth here after
+     def create
+@@ -10,9 +12,9 @@ class SessionController < ApplicationController
+         end
+     end
+ 
+-    def show
+-        render json: user 
+-    end
++    # def show
++    #     render json: user 
++    # end
+ 
+     def destroy
+         user = User.find_by(id: session[:user_id])
+diff --git a/app/controllers/user_controller.rb b/app/controllers/user_controller.rb
+index ee8bc4a..d1db1af 100644
+--- a/app/controllers/user_controller.rb
++++ b/app/controllers/user_controller.rb
+@@ -1,4 +1,6 @@
++
+ class UserController < ApplicationController
++
+     def index
+         users = User.all 
+         render json: users 
+@@ -13,6 +15,11 @@ class UserController < ApplicationController
+         end
+     end
+ 
++    def show
++        user = User.find_by_id(session[:user_id])
++        render json: user
++    end
++
+     private
+     def user_params 
+         params.permit(:name, :about_me, :location, :password, :password_confirmation)
+diff --git a/bookrater-frontend/src/App.js b/bookrater-frontend/src/App.js
+index 175b4bd..c488941 100644
+--- a/bookrater-frontend/src/App.js
++++ b/bookrater-frontend/src/App.js
+@@ -1,7 +1,10 @@
+-import React from "react";
++import React, {useEffect, useState} from "react";
+ import NavBar from "./Home/NavBar";
++import { useDispatch, useSelector } from "react-redux";
++import { getCurrentUser, getUsers } from "./User/userSlice";
+ 
+ function App() {
++
+   return (
+     <div>
+       <NavBar />
+diff --git a/bookrater-frontend/src/Home/HomePage.js b/bookrater-frontend/src/Home/HomePage.js
+index 1898291..68fe1c3 100644
+--- a/bookrater-frontend/src/Home/HomePage.js
++++ b/bookrater-frontend/src/Home/HomePage.js
+@@ -1,7 +1,17 @@
+-import React from "react";
++import React, {useEffect} from "react";
++import { useDispatch, useSelector } from 'react-redux';
++import { getCurrentUser } from "../User/userSlice";
+ 
+ function HomePage(){
+ 
++    const dispatch = useDispatch()
++    // const currentUser = useSelector((state) => state.users.currentUser)
++    // console.log(currentUser)
++
++    // useEffect(() => {
++    //     dispatch(getCurrentUser())
++    // }, [])
++
+     return(
+         <div>
+             Recreating my first project for Flatiron using React and Ruby on Rails.
+diff --git a/bookrater-frontend/src/Home/NavBar.js b/bookrater-frontend/src/Home/NavBar.js
+index a114786..f60c5fd 100644
+--- a/bookrater-frontend/src/Home/NavBar.js
++++ b/bookrater-frontend/src/Home/NavBar.js
+@@ -22,6 +22,7 @@ function NavBar(){
+                     <Nav.Link href="/logout">Logout</Nav.Link>
+                     <Nav.Link href="/login">Login</Nav.Link>
+                     <Nav.Link href="/signup">Signup</Nav.Link>
++                    <Nav.Link href="/homepage">Home</Nav.Link>
+                 </Nav>
+             </Container>
+         </Navbar>
+@@ -30,6 +31,7 @@ function NavBar(){
+             <Route path="/logout" element={<Logout />} />
+             <Route path="/login" element={<Login />} />
+             <Route path="/signup" element={<Signup />} />
++            <Route path="/homepage" element={<HomePage/>}/>
+         </Routes>
+     </div>
+     )
+diff --git a/bookrater-frontend/src/User/Login.js b/bookrater-frontend/src/User/Login.js
+index df17fd2..361393a 100644
+--- a/bookrater-frontend/src/User/Login.js
++++ b/bookrater-frontend/src/User/Login.js
+@@ -1,9 +1,9 @@
+-import React, {useState} from "react";
++import React, {useState, useEffect} from "react";
+ import Form from 'react-bootstrap/Form'
+ import Button from "react-bootstrap/Button";
+ import { useNavigate } from "react-router-dom";
+-import { useDispatch } from 'react-redux';
+-import { login } from "./userSlice";
++import { useDispatch, useSelector } from 'react-redux';
++import { login, getUsers, getCurrentUser } from "./userSlice";
+ 
+ function Login(){
+ 
+@@ -13,6 +13,17 @@ function Login(){
+     const [name, setName] = useState('')
+     const [password, setPassword] = useState('')
+ 
++    const currentUser = useSelector((state) => state.users.currentUser)
++    const users = useSelector((state) => state.users.entities)
++
++    console.log(users)
++
++    useEffect(() => {
++        dispatch(getCurrentUser())
++    }, [dispatch])
++
++    console.log(currentUser)
++
+     const handleNameChange = (e) => {
+         setName(e.target.value)
+     }
+@@ -34,6 +45,14 @@ function Login(){
+     const handleLogin = (e) => {
+         e.preventDefault()
+         dispatch(login(loginObject))
++        .then((data) => {
++            if (data.error) {
++                alert(data.error)
++            } else {
++                console.log('logged in')
++                // navigate('/homepage')
++            }
++        })
+         reset()
+     }
+ 
+diff --git a/bookrater-frontend/src/User/Signup.js b/bookrater-frontend/src/User/Signup.js
+index 1599ccf..dddc21b 100644
+--- a/bookrater-frontend/src/User/Signup.js
++++ b/bookrater-frontend/src/User/Signup.js
+@@ -11,9 +11,8 @@ function Signup(){
+     const state = useSelector((state) => state.users.entities)
+     const currentUser = useSelector((state) => state.users.currentUser)
+     const errorMessage = useSelector((state) => state.users.status)
+-    console.log(errorMessage)
++
+     console.log(state)
+-    console.log(currentUser)
+     
+     const [name, setName] = useState('')
+     const [aboutMe, setAboutMe] = useState('')
+diff --git a/bookrater-frontend/src/User/userSlice.js b/bookrater-frontend/src/User/userSlice.js
+index 8955887..97cd35b 100644
+--- a/bookrater-frontend/src/User/userSlice.js
++++ b/bookrater-frontend/src/User/userSlice.js
+@@ -1,5 +1,13 @@
+ import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+ 
++const baseUrl = "http://localhost:3000/"
++
++export const getUsers = createAsyncThunk("users/getUsers", () => {
++    return fetch(`${baseUrl}users`)
++    .then((res) => res.json())
++    .then((data) => data)
++})
++
+ export const signup = createAsyncThunk("users/signup", (user) => {
+     return fetch("http://localhost:3000/signup" , {
+         method: "POST", 
+@@ -19,20 +27,34 @@ export const signup = createAsyncThunk("users/signup", (user) => {
+             return res.json()
+         })
+         .then((data) => data)
+-        // .then((res) => res.json())
+-        // .then((data) => data)
+ })
+ 
+ export const login = createAsyncThunk("users/login", (user) => {
+     return fetch("http://localhost:3000/login", {
+-        method: "POST",
+-        headers: {
+-            "Accept": "application/json",
+-            "Content-Type": "application/json"
+-        },
+-        body: JSON.stringify(user)
++      method: "POST",
++      headers: {
++        "Accept": "application/json",
++        "Content-Type": "application/json"
++      },
++      body: JSON.stringify(user)
+     })
+     .then((res) => res.json())
++    .then((data) => {
++      console.log("Login Payload:", data); 
++      return data;
++    });
++  });
++  
++
++  export const getCurrentUser = createAsyncThunk("users/getCurrentUser", (user) => {
++    return fetch(`${baseUrl}me`)
++    .then((res) => {
++        if (!res.ok) {
++            throw new Error("You aren't logged in")
++        } 
++        console.log(res)
++        return res.json()
++    })
+     .then((data) => data)
+ })
+ 
+@@ -40,25 +62,33 @@ const userSlice = createSlice({
+     name: "users",
+     initialState:{
+         entities: [],
+-        status: '',
+-        currentUser: null
++        status: 'idle',
++        currentUser: null,
+     } ,
+     reducers: {
+ 
+     },
+     extraReducers: {
++        [getUsers.fulfilled](state, action){
++            state.entities = action.payload
++            console.log(state.entities)
++        },
+         [signup.fulfilled](state, action){
+-            console.log(action.payload)
+             state.entities.push(action.payload)
+             state.currentUser = action.payload
+         },
+-        [signup.rejected](state, action){
+-            state.status = "Make sure to fill out all fields."
+-        },
+         [login.fulfilled](state, action){
++            state.currentUser = action.payload 
+             console.log(action.payload)
+-        }
+-    }
++            // localStorage.setItem("currentUser", action.payload.name)
++            console.log(state.currentUser)
++            console.log(action.payload)
++        }, 
++        [getCurrentUser.fulfilled](state, action) {
++            state.currentUser = action.payload
++            console.log('action from the slice', action)
++        },
++    } 
+ })
+ 
+ export default userSlice.reducer
+\ No newline at end of file
+diff --git a/config/application.rb b/config/application.rb
+index 8aed503..a46ce16 100644
+--- a/config/application.rb
++++ b/config/application.rb
+@@ -10,6 +10,18 @@ module Bookrater
+   class Application < Rails::Application
+     # Initialize configuration defaults for originally generated Rails version.
+     config.load_defaults 7.0
++    config.middleware.use ActionDispatch::Cookies
++    config.middleware.use ActionDispatch::Session::CookieStore, key: '_bookrater_session'
++
++    config.middleware.insert_before 0, Rack::Cors do
++      allow do
++        origins 'http://localhost:3001' # Replace with the actual URL of your frontend
++        resource '*',
++          headers: :any,
++          methods: [:get, :post, :put, :patch, :delete, :options, :head],
++          credentials: true # This is important for cookies and session persistence
++      end
++    end
+ 
+     # Configuration for the application, engines, and railties goes here.
+     #
+diff --git a/config/initializers/cors.rb b/config/initializers/cors.rb
+index 894cd98..28faff0 100644
+--- a/config/initializers/cors.rb
++++ b/config/initializers/cors.rb
+@@ -3,4 +3,14 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
+       origins '*' # Adjust this to allow requests from specific origins
+       resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+     end
+-  end
+\ No newline at end of file
++  end
++
++# Rails.application.config.middleware.insert_before 0, Rack::Cors do
++#   allow do
++#     origins "http://localhost:3000"
++
++#     resource "*",
++#       headers: :any,
++#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
++#   end
++# end
+\ No newline at end of file
+diff --git a/config/routes.rb b/config/routes.rb
+index 1e39227..19c24fb 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -6,5 +6,8 @@ Rails.application.routes.draw do
+   get '/users', to: "user#index"
+   post '/signup', to: "user#create"
+   post '/login', to: "session#create"
++  delete '/logout', to: "session#destroy"
++
++  get '/me', to: "user#show"
+ 
+ end

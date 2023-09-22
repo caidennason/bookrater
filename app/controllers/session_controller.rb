@@ -1,3 +1,5 @@
+require 'byebug'
+
 class SessionController < ApplicationController
     #put auth here after
     def create
@@ -10,9 +12,9 @@ class SessionController < ApplicationController
         end
     end
 
-    def show
-        render json: user 
-    end
+    # def show
+    #     render json: user 
+    # end
 
     def destroy
         user = User.find_by(id: session[:user_id])

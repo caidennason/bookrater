@@ -1,7 +1,15 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 
+
+
+export const getUsers = createAsyncThunk("users/getUsers", () => {
+    return fetch('/users')
+    .then((res) => res.json())
+    .then((data) => data)
+})
+
 export const signup = createAsyncThunk("users/signup", (user) => {
-    return fetch("http://localhost:3000/signup" , {
+    return fetch("/signup" , {
         method: "POST", 
         headers: {
             "Accept": "application/json", 
@@ -19,46 +27,75 @@ export const signup = createAsyncThunk("users/signup", (user) => {
             return res.json()
         })
         .then((data) => data)
-        // .then((res) => res.json())
-        // .then((data) => data)
 })
 
 export const login = createAsyncThunk("users/login", (user) => {
-    return fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
+    return fetch("/login", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
     })
     .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+  });
+  
+
+  export const getCurrentUser = createAsyncThunk("users/getCurrentUser", (user) => {
+    return fetch('/me')
+    .then((res) => {
+        if (!res.ok) {
+            throw new Error("You aren't logged in")
+        } 
+        return res.json()
+    })
     .then((data) => data)
+})
+
+export const logout = createAsyncThunk("users/logout", (user) => {
+    return fetch("/logout", {
+        method: "DELETE"
+    })
 })
 
 const userSlice = createSlice({
     name: "users",
     initialState:{
         entities: [],
-        status: '',
-        currentUser: null
+        status: 'idle',
+        currentUser: null,
     } ,
     reducers: {
 
     },
     extraReducers: {
+        [getUsers.fulfilled](state, action){
+            state.entities = action.payload
+            console.log(state.entities)
+        },
         [signup.fulfilled](state, action){
-            console.log(action.payload)
             state.entities.push(action.payload)
             state.currentUser = action.payload
         },
-        [signup.rejected](state, action){
-            state.status = "Make sure to fill out all fields."
-        },
         [login.fulfilled](state, action){
+            state.currentUser = action.payload 
             console.log(action.payload)
+            // localStorage.setItem("currentUser", action.payload.name)
+            console.log(state.currentUser)
+            console.log(action.payload)
+        }, 
+        [getCurrentUser.fulfilled](state, action) {
+            state.currentUser = action.payload
+        },
+        [logout.fulfilled](state, action) {
+            state.currentUser = null
+            console.log('Logging out from the slice', action)
         }
-    }
+    } 
 })
 
 export default userSlice.reducer

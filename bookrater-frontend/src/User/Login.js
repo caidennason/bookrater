@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { login } from "./userSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { login, getUsers, getCurrentUser } from "./userSlice";
 
 function Login(){
 
@@ -12,6 +12,17 @@ function Login(){
 
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+
+    const currentUser = useSelector((state) => state.users.currentUser)
+    const users = useSelector((state) => state.users.entities)
+
+    console.log(users)
+
+    useEffect(() => {
+        dispatch(getCurrentUser())
+    }, [dispatch])
+
+    console.log(currentUser)
 
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -34,6 +45,14 @@ function Login(){
     const handleLogin = (e) => {
         e.preventDefault()
         dispatch(login(loginObject))
+        .then((data) => {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                console.log('logged in')
+                // navigate('/homepage')
+            }
+        })
         reset()
     }
 

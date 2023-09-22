@@ -11,9 +11,8 @@ function Signup(){
     const state = useSelector((state) => state.users.entities)
     const currentUser = useSelector((state) => state.users.currentUser)
     const errorMessage = useSelector((state) => state.users.status)
-    console.log(errorMessage)
+
     console.log(state)
-    console.log(currentUser)
     
     const [name, setName] = useState('')
     const [aboutMe, setAboutMe] = useState('')
