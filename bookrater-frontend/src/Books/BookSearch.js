@@ -25,12 +25,14 @@ function BookSearch(){
             return res.json()
         })
         .then((data) => {
-            return data;
+            setBooks(data);
         })
         .catch((error) => {
             return { error: error.message }
         })
     }
+
+    console.log(books)
 
     const handleSubmit = (e) => {
         e.preventDefault()
