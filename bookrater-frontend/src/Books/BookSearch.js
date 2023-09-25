@@ -4,10 +4,21 @@ import Button from 'react-bootstrap/Button';
 
 function BookSearch(){
 
-    const [formInput, setFormInput] = useState("")
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
 
-    const handleFormInput = (e) => {
-        setFormInput(e.target.value)
+    const handleTitleInput = (e) => {
+        setTitle(e.target.value)
+    }
+
+    const handleAuthorInput = (e) => {
+        setAuthor(e.target.value)
+    }
+
+    const findBook = () => {
+        fetch(`https://openlibrary.org/search.json?title=${title}&author=${author}`)
+        .then((res) => res.json())
+        .then((data) => data)
     }
 
     return(
@@ -19,8 +30,15 @@ function BookSearch(){
             controlId="name"
             type="search" 
             placeholder="Book title" 
-            value={formInput}
-            onChange={handleFormInput}/> 
+            value={title}
+            onChange={handleTitleInput}/> 
+            <Form.Control
+            className="mb-3" 
+            controlId="name"
+            type="search" 
+            placeholder="Book author" 
+            value={author}
+            onChange={handleAuthorInput}/> 
             <Button>Search</Button>
         </Form>
         </div>

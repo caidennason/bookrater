@@ -21,6 +21,14 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 //     .then((data) => data)
 // })
 
+// export const findbook = createAsyncThunk("books/findBook", (book) => {
+//     return fetch("/")
+// })
+
+// export const findBook = createAsyncThunk("books/findBook", (title, author) => {
+//     return fetch(`https://openlibrary.org/search.json?title=${title}&author=${author}`)
+// })
+
 const bookSlice = createSlice({
     name: "books",
     initialState: {
@@ -31,9 +39,9 @@ const bookSlice = createSlice({
 
     }, 
     extraReducers: {
-        [findBook.fulfilled](state, action){
-            state.entities.push(action.payload)
-        }
+        // [findBook.fulfilled](state, action){
+        //     state.entities.push(action.payload)
+        // }
     }
 })
 
