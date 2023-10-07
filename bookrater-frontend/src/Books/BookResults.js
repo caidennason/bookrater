@@ -12,7 +12,7 @@ function BookResults({book}){
     return(
 
         <div >
-        hello
+       {book.title}
         </div>
     )
 }

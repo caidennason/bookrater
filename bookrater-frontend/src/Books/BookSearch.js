@@ -32,7 +32,7 @@ function BookSearch(){
         })
         .then((data) => {
             console.log(data.docs);
-            setBooks(data.docs.slice(0, 10));
+            setBooks(data.docs.slice(0, 5));
         })
         .catch((error) => {
             return { error: error.message }
@@ -72,7 +72,7 @@ function BookSearch(){
                 return <BookResults book={book}/>;
             })
         ) : (
-            <p>No books ... yet</p>
+            ''
         )}
         </div>
         </div>
