@@ -35,8 +35,8 @@ function NavBar(){
                 <Navbar.Brand href="/">Bookrater</Navbar.Brand>
                 <Nav class-name="me-auto">
                     {/* <Nav.Link href="/logout">Logout</Nav.Link> */}
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/signup">Signup</Nav.Link>
+                    {!currentUser ? <Nav.Link href="/login">Login</Nav.Link> : ''}
+                    {!currentUser ? <Nav.Link href="/signup">Signup</Nav.Link> : ''}
                     <Nav.Link href="/homepage">Home</Nav.Link>
                     {currentUser ? <Nav.Link href="/profile">Profile</Nav.Link> : ' '}
                     {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : ' '}

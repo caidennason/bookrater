@@ -6,13 +6,13 @@ import React from 'react';
 // you can get the last result you deleted
 // results are limited to 10?
 
-function BookResults({books}){
+function BookResults({book}){
+    console.log(book)
 
     return(
 
         <div >
         hello
-        {books}
         </div>
     )
 }

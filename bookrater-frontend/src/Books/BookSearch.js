@@ -3,7 +3,6 @@ import BookResults from './BookResults';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-
 function BookSearch(){
 
     const [title, setTitle] = useState('')
@@ -32,7 +31,8 @@ function BookSearch(){
             return res.json()
         })
         .then((data) => {
-            setBooks(data);
+            console.log(data.docs);
+            setBooks(data.docs.slice(0, 10));
         })
         .catch((error) => {
             return { error: error.message }
@@ -43,16 +43,16 @@ function BookSearch(){
         e.preventDefault()
         console.log(title, author)
         findBook()
-        console.log(books.docs)
+        console.log(books)
         setTitle('')
         setAuthor('')
     }
 
     return(
 
-        <div className="d-flex justify-content-center align-items-center vh-100">
-            <div style={{justifyContent: 'center'}}></div>
-        <Form onSubmit={handleSubmit} className="w-50 p-4 rounded bg-light rounded shadow">
+        <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <div className="text-center">
+        <Form onSubmit={handleSubmit} className="w-100 p-4 rounded bg-light rounded shadow">
             <Form.Label>Search for a book</Form.Label>
             <Form.Control
             className="mb-3" 
@@ -66,8 +66,15 @@ function BookSearch(){
             onChange={handleAuthorInput}/> 
             <Button type="submit">Search</Button>
         </Form>
-        <div>
-            <BookResults />
+        <div className="mt-4">
+        {books && books.length > 0 ? (
+            books.map((book) => {
+                return <BookResults book={book}/>;
+            })
+        ) : (
+            <p>No books ... yet</p>
+        )}
+        </div>
         </div>
         </div>
     )
