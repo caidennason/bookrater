@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import BookResults from './BookResults';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
 
 function BookSearch(){
 
@@ -17,7 +19,12 @@ function BookSearch(){
     }
 
     const findBook = () => {
-        fetch(`https://openlibrary.org/search.json?title=${title}&author=${author}`)
+        let url = `https://openlibrary.org/search.json?title=${title}`;
+  
+        if (author) {
+          url += `&author=${author}`;
+        }
+        fetch(url)
         .then((res) => {
             if (!res.ok) {
                 throw new Error('Something went wrong, try again')
@@ -32,36 +39,36 @@ function BookSearch(){
         })
     }
 
-    console.log(books)
-
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(title, author)
         findBook()
+        console.log(books.docs)
         setTitle('')
         setAuthor('')
     }
 
     return(
+
         <div className="d-flex justify-content-center align-items-center vh-100">
+            <div style={{justifyContent: 'center'}}></div>
         <Form onSubmit={handleSubmit} className="w-50 p-4 rounded bg-light rounded shadow">
             <Form.Label>Search for a book</Form.Label>
             <Form.Control
             className="mb-3" 
-            // controlId="name"
-            // // type="search" 
             placeholder="Book title" 
             value={title}
             onChange={handleTitleInput}/> 
             <Form.Control
             className="mb-3" 
-            // controlId="name"
-            // // type="search" 
             placeholder="Book author" 
             value={author}
             onChange={handleAuthorInput}/> 
             <Button type="submit">Search</Button>
         </Form>
+        <div>
+            <BookResults />
+        </div>
         </div>
     )
 }
