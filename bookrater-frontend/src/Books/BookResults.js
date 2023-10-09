@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 
 // this should load all the books from the search
@@ -10,28 +10,41 @@ import Card from 'react-bootstrap/Card';
 function BookResults({book}){
     console.log(book)
 
-    const [work, setWork] = ('')
-    const [bookKey, setBookKey] = ('')
+    const [work, setWork] = useState('')
+    const [bookKey, setBookKey] = useState('')
+    const [bookTitle, setBookTitle] = useState('')
 
-    const getWork = () => {
-        let url = `https://openlibrary.org/works${bookKey}`
+    useEffect(() => {
+        console.log(work)
+    }, [work])
+
+
+    const getKey = (e) => {
+        setBookKey(book.key)
+        getWork(book.key)
+    }
+
+    const getWork = async (bookKey) => {
+        if (bookKey) {
+        let url = `https://openlibrary.org${bookKey}.json`
         fetch(url)
         .then((res) => res.json())
         .then((b) => setWork(b))
-    }
-
-    const getKey = (e) => {
-        console.log('specific book click', book)
+        } else {
+            console.log('hold up wait a minute')
+        }
     }
 
     return(
-
+        <div>
+            <p>{bookKey}</p>
         <Card style={{width: '18rem'}} onClick={(getKey)}>
             <Card.Body>
                 <Card.Title>{book.title}</Card.Title>
                     <Card.Text>{book.author_name[0]}</Card.Text>
             </Card.Body>
         </Card>
+        </div>
     )
 }
 
