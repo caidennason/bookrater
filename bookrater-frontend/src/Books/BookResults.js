@@ -47,7 +47,7 @@ function BookResults({book}){
             </Card.Body>
         </Card>
         </div>
-        <BookModal work={work} showModal={showModal} setShowModal={setShowModal}/>
+        <BookModal author={book.author_name[0]} work={work} showModal={showModal} setShowModal={setShowModal}/>
         </>
     )
 }

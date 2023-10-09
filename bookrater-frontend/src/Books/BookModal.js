@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-function BookModal({showModal, setShowModal, work}){
+function BookModal({showModal, setShowModal, work, author}){
 
     const handleClose = () => setShowModal(false);
 
@@ -10,9 +10,9 @@ function BookModal({showModal, setShowModal, work}){
         <>
         <Modal show={showModal} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>{work.title}</Modal.Title>
+                <Modal.Title>{work.title} by {author}</Modal.Title>
             </Modal.Header>
-            {work && work.description && work.description.value ? <Modal.Title>{work.description.value}</Modal.Title> : ''}
+            {work && work.description && work.description.value ? <Modal.Title>{work.description.value}</Modal.Title> : 'No description available.'}
             <Modal.Footer>
                 <Button variant="seconday" onClick={handleClose}>
                     Close
