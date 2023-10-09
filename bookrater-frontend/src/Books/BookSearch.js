@@ -31,7 +31,7 @@ function BookSearch(){
             return res.json()
         })
         .then((data) => {
-            console.log(data.docs);
+            console.log(data);
             setBooks(data.docs.slice(0, 5));
         })
         .catch((error) => {
