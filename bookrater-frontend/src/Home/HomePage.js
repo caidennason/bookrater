@@ -7,12 +7,7 @@ function HomePage(){
 
     const currentUser = useSelector((state) => state.users.currentUser)
     const dispatch = useDispatch()
-    // const currentUser = useSelector((state) => state.users.currentUser)
     console.log(currentUser)
-
-    // useEffect(() => {
-    //     dispatch(getCurrentUser())
-    // }, [])
 
     return(
         <div>

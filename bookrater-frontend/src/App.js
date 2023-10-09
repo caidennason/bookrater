@@ -8,9 +8,6 @@ import Button from "react-bootstrap/Button";
 
 function App() {
 
-  const api_key=process.env.REACT_APP_BOOKS_KEY
-  console.log(api_key)
-
   const currentUser = useSelector((state) => state.users.currentUser)
   const dispatch = useDispatch()
 
