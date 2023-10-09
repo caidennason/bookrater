@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
+import BookModal from './BookModal';
 
 // this should load all the books from the search
 // when you add one, i would like to have an animation that shows it was added to your profile
@@ -12,7 +13,7 @@ function BookResults({book}){
 
     const [work, setWork] = useState('')
     const [bookKey, setBookKey] = useState('')
-    const [bookTitle, setBookTitle] = useState('')
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         console.log(work)
@@ -22,6 +23,7 @@ function BookResults({book}){
     const getKey = (e) => {
         setBookKey(book.key)
         getWork(book.key)
+        setShowModal(true)
     }
 
     const getWork = async (bookKey) => {
@@ -36,8 +38,8 @@ function BookResults({book}){
     }
 
     return(
+        <>
         <div>
-            <p>{bookKey}</p>
         <Card style={{width: '18rem'}} onClick={(getKey)}>
             <Card.Body>
                 <Card.Title>{book.title}</Card.Title>
@@ -45,6 +47,8 @@ function BookResults({book}){
             </Card.Body>
         </Card>
         </div>
+        <BookModal work={work} showModal={showModal} setShowModal={setShowModal}/>
+        </>
     )
 }
 
