@@ -34,7 +34,7 @@ const bookSlice = createSlice({
     }, 
     extraReducers: {
         [submitBook.fulfilled](state, action){
-            entities.push(action.payload)
+            state.entities.push(action.payload)
             console.log('successfully sent a book to the backend', state)
         },
     }
