@@ -13,18 +13,21 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
     const [title, setTitle] = useState('') 
     const [writer, setWriter] = useState('')
     const [about, setAbout] = useState('')
+    const [photoUrl, setPhotoUrl] = useState('')
 
     const book = {
         user_id: currentUser.id,
         title: title, 
         author: writer, 
-        about: about
+        about: about, 
+        photo_url: photoUrl
     }
-
+    const photoSrc = `https://covers.openlibrary.org/b/oclc/${isbn}-M.jpg`
     const addBook = () => {
         setTitle(work.title)
         setWriter(author)
         work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
+        setPhotoUrl(photoSrc)
     }
 
     console.log(book)
@@ -37,7 +40,7 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
                 <Modal.Title>{work.title} by {author}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <img src={`https://covers.openlibrary.org/b/oclc/${isbn}-M.jpg`}/>
+                <img src={photoSrc}/>
             </Modal.Body>
             {work && work.description && work.description.value ? <Modal.Body>{work.description.value}</Modal.Body> : 'No description available.'}
             <Modal.Footer>
