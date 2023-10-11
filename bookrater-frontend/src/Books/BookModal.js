@@ -14,6 +14,12 @@ function BookModal({showModal, setShowModal, work, author}){
     const [writer, setWriter] = useState('')
     const [about, setAbout] = useState('')
 
+    const addBook = () => {
+        setTitle(work.title)
+        setWriter(author)
+        work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
+    }
+
     const book = {
         user_id: currentUser.id,
         title: title, 
@@ -21,12 +27,7 @@ function BookModal({showModal, setShowModal, work, author}){
         about: about
     }
 
-    const addBook = () => {
-        setTitle(work.title)
-        setWriter(author)
-        work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
-        console.log(book)
-    }
+    console.log(book)
 
 
     return (
@@ -40,12 +41,7 @@ function BookModal({showModal, setShowModal, work, author}){
                 <Button onClick={handleClose}>
                     Close
                 </Button>
-                <Button onClick={() => {
-                    setTitle(work.title)
-                    setWriter(author)
-                    work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
-                    console.log(book)
-                }}>
+                <Button onClick={addBook}>
                     Add
                 </Button>
             </Modal.Footer>
