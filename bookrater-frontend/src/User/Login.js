@@ -48,6 +48,7 @@ function Login(){
         .then((data) => {
             if (data.error) {
                 alert(data.error)
+                console.log(data.error)
             } else {
                 console.log('logged in')
                 navigate('/profile')
