@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitBook } from './bookSlice';
 
-function BookModal({showModal, setShowModal, work, author}){
+function BookModal({showModal, setShowModal, work, author, isbn}){
 
     const currentUser = useSelector((state) => state.users.currentUser)
     const handleClose = () => setShowModal(false);
@@ -14,17 +14,17 @@ function BookModal({showModal, setShowModal, work, author}){
     const [writer, setWriter] = useState('')
     const [about, setAbout] = useState('')
 
-    const addBook = () => {
-        setTitle(work.title)
-        setWriter(author)
-        work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
-    }
-
     const book = {
         user_id: currentUser.id,
         title: title, 
         author: writer, 
         about: about
+    }
+
+    const addBook = () => {
+        setTitle(work.title)
+        setWriter(author)
+        work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
     }
 
     console.log(book)
@@ -36,7 +36,10 @@ function BookModal({showModal, setShowModal, work, author}){
             <Modal.Header closeButton>
                 <Modal.Title>{work.title} by {author}</Modal.Title>
             </Modal.Header>
-            {work && work.description && work.description.value ? <Modal.Title>{work.description.value}</Modal.Title> : 'No description available.'}
+            <Modal.Body>
+                <img src={`https://covers.openlibrary.org/b/oclc/${isbn}-M.jpg`}/>
+            </Modal.Body>
+            {work && work.description && work.description.value ? <Modal.Body>{work.description.value}</Modal.Body> : 'No description available.'}
             <Modal.Footer>
                 <Button onClick={handleClose}>
                     Close
