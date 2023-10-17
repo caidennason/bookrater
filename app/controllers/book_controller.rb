@@ -1,5 +1,10 @@
 class BookController < ApplicationController
 
+    def show
+        books = Book.all 
+        render json: books
+    end
+
     def create 
         book = Book.create(book_params)
         if book.valid? 
@@ -11,6 +16,6 @@ class BookController < ApplicationController
 
     private 
     def book_params
-        params.permit(:id, :title, :author, :rating, :about, :user_id)
+        params.permit(:id, :title, :author, :rating, :about, :photo_url, :user_id)
     end
 end

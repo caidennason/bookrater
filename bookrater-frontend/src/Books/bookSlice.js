@@ -37,6 +37,9 @@ const bookSlice = createSlice({
             state.entities.push(action.payload)
             console.log('successfully sent a book to the backend', state)
         },
+        [submitBook.rejected](state, action){
+            console.log(action)
+        }
     }
 })
 
