@@ -5,7 +5,7 @@ export const submitBook = createAsyncThunk("books/submit", (book) => {
         method: "POST",
         headers: {
             "Accept": "application/json",
-            "Content-Type": "appliaction/json"
+            "Content-Type": "application/json"
         }, 
         body: JSON.stringify(book)
     })

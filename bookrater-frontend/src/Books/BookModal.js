@@ -33,15 +33,15 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
     // }
 
     const addBook = () => {
-        const updatedBook = {
+        const postedBook = {
             user_id: currentUser.id,
             title: work.title,
             author: author,
             about: work.description && work.description.value ? work.description.value : 'No description available',
             photo_url: photoSrc,
         };
-    
-        dispatch(submitBook(updatedBook));
+        console.log(postedBook)
+        dispatch(submitBook(postedBook));
     }
 
     // console.log(book)
