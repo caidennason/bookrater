@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import BookResults from './BookResults';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import SearchErrorModal from './SearchErrorModal';
 
 function BookSearch(){
 
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [books, setBooks] = useState(null)
+
+    const [showErrorModal, setErrorModal] = useState(false)
+
+    const handleErrorModal = () => {
+        setErrorModal(!showErrorModal)
+        console.log(showErrorModal)
+    }
 
     const handleTitleInput = (e) => {
         setTitle(e.target.value)
@@ -33,8 +41,12 @@ function BookSearch(){
         .then((data) => {
             console.log(data);
             setBooks(data.docs.slice(0, 5));
+            if (data.docs.length === 0) {
+                handleErrorModal();
+            }
         })
         .catch((error) => {
+            handleErrorModal()
             return { error: error.message }
         })
     }
@@ -72,7 +84,9 @@ function BookSearch(){
                 return <BookResults book={book}/>;
             })
         ) : (
-            ''
+            <>
+            <SearchErrorModal handleErrorModal={handleErrorModal} showErrorModal={showErrorModal}/>
+            </>
         )}
         </div>
         </div>

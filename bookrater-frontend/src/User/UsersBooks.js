@@ -7,9 +7,12 @@ function UsersBooks({b}){
 
     return(
         <>
-            <Card>
-                <Card.Title>{b.title}</Card.Title>
-                <Card.Text>{b.author}</Card.Text>
+            <Card style={{width: '20rem'}}>
+                <Card.Body>
+                    <Card.Title>{b.title}</Card.Title>
+                        <Card.Text>{b.author}</Card.Text>
+                        <Card.Text>{b.about}</Card.Text>
+                </Card.Body>
             </Card>
         </>
     )
