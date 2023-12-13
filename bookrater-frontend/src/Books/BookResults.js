@@ -37,11 +37,18 @@ function BookResults({book}){
         <Card style={{width: '18rem'}} onClick={(getKey)}>
             <Card.Body>
                 <Card.Title>{book.title}</Card.Title>
+                {book.author_name && book.author_name[0] && (
                     <Card.Text>{book.author_name[0]}</Card.Text>
+                )}
             </Card.Body>
         </Card>
         </div>
-        <BookModal isbn={book.oclc} author={book.author_name[0]} work={work} showModal={showModal} setShowModal={setShowModal}/>
+        <BookModal 
+        isbn={book.oclc}
+        author={book.author_name && book.author_name[0]} 
+        work={work}
+        showModal={showModal} 
+        setShowModal={setShowModal}/>
         </>
     )
 }
