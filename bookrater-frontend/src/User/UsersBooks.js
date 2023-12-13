@@ -1,26 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button'
 
 function UsersBooks({b}){
 
-    return(
+    const [expand, setExpand] = useState(true)
 
-        <Row xs={1} md={2} className="g-4">
-      {Array.from({ length: 1 }).map((_, idx) => (
-        <Col key={idx}>
+    const toggleExpand = () => {
+        setExpand(!expand)
+    }
+
+    return(
             <Card style={{width: '20rem'}}>
                 <Card.Body>
                     <Card.Title>{b.title}</Card.Title>
                         <Card.Subtitle>{b.author}</Card.Subtitle>
-                        <Card.Body>{b.about}</Card.Body>
+                        <Card.Body>
+                            {expand ? b.about.slice(0, 100) + '...' : b.about}
+                        </Card.Body>
                 </Card.Body>
+                <Button onClick={toggleExpand}>
+                    {expand ? 'See more' : 'See less'}
+                </Button>
             </Card>
-            </Col>
-      ))}
-        </Row>
+
     )
 }
 

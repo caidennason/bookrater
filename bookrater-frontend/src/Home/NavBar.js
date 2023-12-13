@@ -38,7 +38,7 @@ function NavBar(){
                     {!currentUser ? <Nav.Link href="/login">Login</Nav.Link> : ''}
                     {!currentUser ? <Nav.Link href="/signup">Signup</Nav.Link> : ''}
                     <Nav.Link href="/homepage">Home</Nav.Link>
-                    {currentUser ? <Nav.Link href="/profile">Profile</Nav.Link> : ' '}
+                    {currentUser ? <Nav.Link href="/profile">{currentUser.name}'s Profile</Nav.Link> : ' '}
                     {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : ' '}
                     {/* {currentUser ? <Nav.Link onClick={signout}>Logout</Nav.Link> : ''} */}
                 </Nav>
