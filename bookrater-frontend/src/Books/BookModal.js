@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitBook } from './bookSlice';
+import CloseButton from 'react-bootstrap/esm/CloseButton';
 
 function BookModal({showModal, setShowModal, work, author, isbn}){
 
@@ -44,6 +45,18 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
         dispatch(submitBook(postedBook));
     }
 
+    const addToWishlist = () => {
+        const wishlistBook = {
+            user_id: currentUser.id,
+            title: work.title,
+            author: author, 
+            about: work.description && work.description.value ? work.description.value : 'No description available',
+            photo_url: photoSrc,
+            wishlist: true
+        }
+        console.log(wishlistBook)
+    }
+
     // console.log(book)
 
 
@@ -58,12 +71,15 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
             </Modal.Body>
             {work && work.description && work.description.value ? <Modal.Body>{work.description.value}</Modal.Body> : 'No description available.'}
             <Modal.Footer>
-                <Button onClick={handleClose}>
-                    Close
-                </Button>
                 <Button onClick={addBook}>
-                    Add
+                    I've Read It!
                 </Button>
+                <Button onClick={addToWishlist}>
+                    Add it to the wishlist!
+                </Button>
+                <br></br>
+                <CloseButton onClick={handleClose}>
+                </CloseButton>
             </Modal.Footer>
         </Modal>
         </>
