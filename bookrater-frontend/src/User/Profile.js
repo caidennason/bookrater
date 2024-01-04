@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from './userSlice';
 import UsersBooks from './UsersBooks';
+import UsersWishlist from './UsersWishlist';
 
 
 function Profile(){
@@ -20,6 +21,7 @@ function Profile(){
             {currentUser ? currentUser.books.map((b) => {
                 return <UsersBooks b={b}/>
             }) : ' '}
+            {currentUser ? <UsersWishlist /> : ' '}
         </>
     )
 }
