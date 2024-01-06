@@ -56,6 +56,7 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
             wishlist: true
         }
         console.log(wishlistBook)
+        dispatch(submitBook(wishlistBook))
     }
 
     // console.log(book)
