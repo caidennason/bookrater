@@ -8,6 +8,7 @@ import UsersWishlist from './UsersWishlist';
 function Profile(){
 
     const [wishlistBooks, setWishlistBooks] = useState([])
+    const [readBooks, setReadBooks] = useState([])
  
     const currentUser = useSelector((state) => state.users.currentUser);
     const dispatch = useDispatch()
@@ -21,6 +22,12 @@ function Profile(){
             .then(wishlistBooks => (setWishlistBooks(wishlistBooks)))
     }, [])
 
+    useEffect(() => {
+        fetch('/books')
+        .then(res => res.json())
+        .then(readBooks => (setReadBooks(readBooks)))
+    }, [])
+
     console.log(wishlistBooks)
 
     return(
@@ -29,7 +36,7 @@ function Profile(){
             <p>{currentUser ? currentUser.about_me : ' '}</p>
             <p>{currentUser ? currentUser.location : ' '}</p>
             <h1>Books I've Read</h1>
-            {currentUser ? currentUser.books.map((b) => {
+            {currentUser ? readBooks.map((b) => {
                 return <UsersBooks b={b}/>
             }) : ' '}
             <h1>Wishlist</h1>

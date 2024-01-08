@@ -22,7 +22,7 @@ class SessionController < ApplicationController
             session.delete :user_id
             head :no_content
         else
-            render json: {error: "something cute later but u can't do this"}, status: :unauthorized
+            render json: {error: "something cute later but u can't do this"}, status: unauthorized
         end
     end
 

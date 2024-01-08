@@ -1,7 +1,7 @@
 class BookController < ApplicationController
 
     def show
-        books = Book.where("wishlist = ? OR wishlist IS NULL", false)
+        books = Book.where(wishlist: false, user_id: current_user.id)
         render json: books
     end
 
