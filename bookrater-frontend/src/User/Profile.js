@@ -28,10 +28,14 @@ function Profile(){
            <p>{currentUser ? currentUser.name : ' '}</p>
             <p>{currentUser ? currentUser.about_me : ' '}</p>
             <p>{currentUser ? currentUser.location : ' '}</p>
+            <h1>Books I've Read</h1>
             {currentUser ? currentUser.books.map((b) => {
                 return <UsersBooks b={b}/>
             }) : ' '}
-            {currentUser ? <UsersWishlist /> : ' '}
+            <h1>Wishlist</h1>
+            {currentUser ? wishlistBooks.map((b) => {
+                return <UsersWishlist b={b}/>
+            }) : ' '}
         </>
     )
 }
