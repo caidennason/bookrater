@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post '/login', to: "session#create"
   delete '/logout', to: "session#destroy"
   get '/books', to: "book#show"
+  get '/wishlistbooks', to: "book#show_wishlist"
 
   post '/submit', to: "book#create"
 
