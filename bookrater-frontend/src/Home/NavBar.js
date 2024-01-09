@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
@@ -13,6 +13,7 @@ import Profile from "../User/Profile";
 import { logout } from "../User/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BookSearch from "../Books/BookSearch";
+import Spinner from 'react-bootstrap/Spinner';
 
 function NavBar(){
 
@@ -25,25 +26,35 @@ function NavBar(){
         navigate('/login')
     }
 
-    return(
-    <div>
+    const spinner = () => (
         <Navbar bg="dark" data-bs-theme='dark'>
         <Container>
-            {currentUser? <Button onClick={signout}>Signout</Button> : ''}
+            <Navbar.Brand>
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+        </Navbar.Brand>
+        </Container>
+        </Navbar>
+    )
+
+    return(
+    <div>
+        {currentUser != null ? <Navbar bg="dark" data-bs-theme='dark'>
+        <Container>
+            {currentUser ? <Button onClick={signout}>Signout</Button> : ''}
         </Container>
             <Container>
                 <Navbar.Brand href="/">Bookrater</Navbar.Brand>
                 <Nav class-name="me-auto">
-                    {/* <Nav.Link href="/logout">Logout</Nav.Link> */}
-                    {!currentUser ? <Nav.Link href="/login">Login</Nav.Link> : ''}
-                    {!currentUser ? <Nav.Link href="/signup">Signup</Nav.Link> : ''}
+                    {!currentUser ? <Nav.Link href="/login">Login</Nav.Link> : null}
+                    {!currentUser ? <Nav.Link href="/signup">Signup</Nav.Link> : null}
                     <Nav.Link href="/homepage">Home</Nav.Link>
-                    {currentUser ? <Nav.Link href="/profile">{currentUser.name}'s Profile</Nav.Link> : ' '}
-                    {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : ' '}
-                    {/* {currentUser ? <Nav.Link onClick={signout}>Logout</Nav.Link> : ''} */}
+                    {currentUser ? <Nav.Link href="/profile">{currentUser.name}'s Profile</Nav.Link> : null}
+                    {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : null}
                 </Nav>
             </Container>
-        </Navbar>
+        </Navbar> : spinner() }
         <Routes>
             <Route path='/' element={<HomePage />}/>
             <Route path="/logout" element={<Logout />} />
