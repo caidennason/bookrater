@@ -63,7 +63,7 @@ const bookSlice = createSlice({
             console.log('hello from delete book in redux')
             const deletedBook = action.meta.arg;
             const remainingBooks = state.entities.filter((b) => b.id !== deletedBook.id)
-            state.entitites = remainingBooks;
+            state.entities = remainingBooks;
             state.status = 'deleted';
         }, 
         [getReadBooks.fulfilled](state, action){ 

@@ -18,7 +18,7 @@ function Profile(){
     }, [dispatch])
 
     const books = useSelector((state) => state.books.entities)
-    console.log(books)
+
     useEffect(() => {
         dispatch(getCurrentUser())
       }, [dispatch])
@@ -28,12 +28,6 @@ function Profile(){
             .then(res => res.json())
             .then(wishlistBooks => (setWishlistBooks(wishlistBooks)))
     }, [])
-
-    // useEffect(() => {
-    //     fetch('/books')
-    //     .then(res => res.json())
-    //     .then(readBooks => (setReadBooks(readBooks)))
-    // }, [])
 
     console.log(wishlistBooks)
 
