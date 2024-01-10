@@ -1,5 +1,11 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 
+export const getReadBooks = createAsyncThunk("books/getBooks", (book) => {
+    return fetch('/books')
+    .then(res => res.json())
+    .then((data) => data)
+})
+
 export const submitBook = createAsyncThunk("books/submit", (book) => {
     return fetch("/submit", {
         method: "POST",
@@ -55,6 +61,14 @@ const bookSlice = createSlice({
         }, 
         [deleteBook.fulfilled](state, action){
             console.log('hello from delete book in redux')
+            const deletedBook = action.meta.arg;
+            const remainingBooks = state.entities.filter((b) => b.id !== deletedBook.id)
+            state.entitites = remainingBooks;
+            state.status = 'deleted';
+        }, 
+        [getReadBooks.fulfilled](state, action){ 
+            console.log(action.payload)
+            state.entities = action.payload;
         }
     }
 })
