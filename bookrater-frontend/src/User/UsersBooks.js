@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton';
 import Container from 'react-bootstrap/Container';
+import { useDispatch } from 'react-redux';
+import { deleteBook } from '../Books/bookSlice';
 
 function UsersBooks({b}){
 
@@ -15,9 +17,20 @@ function UsersBooks({b}){
         setExpand(!expand)
     }
 
+    const dispatch = useDispatch()
+
+    const handleBookDelete = () => {
+        console.log('checking', b)
+    }
+
     return(
             <Card style={{width: '20rem'}}>
-                <CloseButton style={{ marginLeft: 'auto'}} />
+                <CloseButton 
+                style={{ marginLeft: 'auto'}} 
+                onClick={(e) => {
+                    handleBookDelete()
+                }}
+                />
                 <Card.Body >
                     <Card.Title>{b.title}</Card.Title>
                         <Card.Subtitle>{b.author}</Card.Subtitle>

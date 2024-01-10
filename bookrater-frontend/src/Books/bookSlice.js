@@ -21,7 +21,8 @@ export const submitBook = createAsyncThunk("books/submit", (book) => {
     .then((data) => data)
 })
 
-export const removeBook = createAsyncThunk("books/delete", (book) => {
+export const deleteBook = createAsyncThunk("books/delete", (book) => {
+    console.log(book)
     return fetch(`/books/${book.id}`, {
         method: "DELETE"
     })
@@ -51,6 +52,9 @@ const bookSlice = createSlice({
         },
         [submitBook.rejected](state, action){
             console.log(action)
+        }, 
+        [deleteBook.fulfilled](state, action){
+            console.log('hello from delete book in redux')
         }
     }
 })

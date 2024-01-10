@@ -19,6 +19,16 @@ class BookController < ApplicationController
         end
     end
 
+    def destroy
+        book = Book.find_by(id: params[:id])
+            if book.user_id == current_user.id 
+                book.destroy 
+                render json: {message: "Book deleted."}, status: :ok 
+            else
+                render json: { error: "You can only delete your own books."}
+            end
+    end
+
     private 
     def book_params
         params.permit(:id, :title, :author, :rating, :about, :photo_url, :user_id, :wishlist)
