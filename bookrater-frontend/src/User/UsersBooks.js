@@ -4,6 +4,8 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button'
+import CloseButton from 'react-bootstrap/CloseButton';
+import Container from 'react-bootstrap/Container';
 
 function UsersBooks({b}){
 
@@ -15,16 +17,17 @@ function UsersBooks({b}){
 
     return(
             <Card style={{width: '20rem'}}>
-                <Card.Body>
+                <CloseButton style={{ marginLeft: 'auto'}} />
+                <Card.Body >
                     <Card.Title>{b.title}</Card.Title>
                         <Card.Subtitle>{b.author}</Card.Subtitle>
                         <Card.Body>
                             {expand ? b.about.slice(0, 100) + '...' : b.about}
                         </Card.Body>
                 </Card.Body>
-                <Button onClick={toggleExpand}>
-                    {expand ? 'See more' : 'See less'}
-                </Button>
+                    <Button onClick={toggleExpand}>
+                        {expand ? 'See more' : 'See less'}
+                    </Button>
             </Card>
 
     )

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/wishlistbooks', to: "book#show_wishlist"
 
   post '/submit', to: "book#create"
+  delete '/books/:id', to: "book#destroy"
 
   get '/me', to: "user#show"
 

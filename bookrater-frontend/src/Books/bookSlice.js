@@ -21,6 +21,18 @@ export const submitBook = createAsyncThunk("books/submit", (book) => {
     .then((data) => data)
 })
 
+export const removeBook = createAsyncThunk("books/delete", (book) => {
+    return fetch(`/books/${book.id}`, {
+        method: "DELETE"
+    })
+    .then((res) => {
+        if (!res.ok) {
+            throw new Error("unable to delete book")
+        }
+        return res.json()
+    })
+    .then((data) => data)
+})
 
 
 const bookSlice = createSlice({
