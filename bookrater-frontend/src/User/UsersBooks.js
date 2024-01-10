@@ -21,6 +21,7 @@ function UsersBooks({b}){
 
     const handleBookDelete = () => {
         console.log('checking', b)
+        dispatch(deleteBook(b))
     }
 
     return(
