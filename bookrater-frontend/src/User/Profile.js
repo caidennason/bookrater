@@ -4,6 +4,9 @@ import { getCurrentUser } from './userSlice';
 import UsersBooks from './UsersBooks';
 import UsersWishlist from './UsersWishlist';
 import { getReadBooks } from '../Books/bookSlice';
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
 
 
 function Profile(){
@@ -31,19 +34,41 @@ function Profile(){
 
     console.log(wishlistBooks)
 
+    const renderReadBooks = (books) =>
+    currentUser &&
+    books.map((b) => (
+      <Col key={b.id} md={4}>
+        <UsersBooks b={b} />
+      </Col>
+    ));
+
+    
+    const renderWishlistBooks = (wishlistBooks) =>
+    currentUser &&
+    wishlistBooks.map((b) => (
+      <Col key={b.id} md={4}>
+        <UsersBooks b={b} />
+      </Col>
+    ));
+
     return(
         <>
            <p>{currentUser ? currentUser.name : ' '}</p>
             <p>{currentUser ? currentUser.about_me : ' '}</p>
             <p>{currentUser ? currentUser.location : ' '}</p>
             <h1>Books I've Read</h1>
-            {currentUser ? books.map((b) => {
-                return <UsersBooks b={b}/>
-            }) : ' '}
+            <Container> 
+                <Row >
+                    {currentUser && renderReadBooks(books)}
+                </Row>
+            </Container>
+            <br></br>
             <h1>Wishlist</h1>
-            {currentUser ? wishlistBooks.map((b) => {
-                return <UsersWishlist b={b}/>
-            }) : ' '}
+            <Container>
+                <Row >
+            {currentUser && renderWishlistBooks(wishlistBooks)}
+                </Row>
+            </Container>
         </>
     )
 }
