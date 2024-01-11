@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button'
 import { useDispatch } from 'react-redux';
-import { deleteBook } from '../Books/bookSlice';
 import CloseButton from 'react-bootstrap/CloseButton';
+import { deleteWishlistBook } from '../Books/bookSlice';
 
 function UsersWishlist({b}){
 
@@ -19,7 +16,7 @@ function UsersWishlist({b}){
     const dispatch = useDispatch()
 
     const handleBookDelete = () => {
-        dispatch(deleteBook(b))
+        dispatch(deleteWishlistBook(b))
     }
 
     return(

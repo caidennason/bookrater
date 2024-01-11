@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton';
-import Container from 'react-bootstrap/Container';
 import { useDispatch } from 'react-redux';
 import { deleteBook } from '../Books/bookSlice';
 

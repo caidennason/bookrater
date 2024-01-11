@@ -10,11 +10,13 @@ import Col from 'react-bootstrap/esm/Col';
 
 
 function Profile(){
-
-    // const [wishlistBooks, setWishlistBooks] = useState([])
  
     const currentUser = useSelector((state) => state.users.currentUser);
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCurrentUser())
+      }, [dispatch])
 
     useEffect(() => {
         dispatch(getReadBooks())
@@ -22,23 +24,10 @@ function Profile(){
     
     useEffect(() => {
         dispatch(getWishlistBooks())
-    }, [])
+    }, [dispatch])
 
     const books = useSelector((state) => state.books.entities)
-
-    useEffect(() => {
-        dispatch(getCurrentUser())
-      }, [dispatch])
-
-    // useEffect(() => {
-    //         fetch('/wishlistbooks')
-    //         .then(res => res.json())
-    //         .then(wishlistBooks => (setWishlistBooks(wishlistBooks)))
-    // }, [])
-
     const wishlistBooks = useSelector((state) => state.books.wishlistEntities)
-    const check = useSelector((state) => state)
-    console.log(check)
 
     const renderReadBooks = (books) =>
     currentUser &&

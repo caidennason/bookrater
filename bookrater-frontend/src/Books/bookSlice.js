@@ -47,6 +47,20 @@ export const deleteBook = createAsyncThunk("books/delete", (book) => {
     .then((data) => data)
 })
 
+export const deleteWishlistBook = createAsyncThunk("books/deleteWishlistBook", (book) => {
+    console.log(book)
+    return fetch(`/books/${book.id}`, {
+        method: "DELETE"
+    })
+    .then((res) => {
+        if (!res.ok) {
+            throw new Error("unable to delete book")
+        }
+        return res.json()
+    })
+    .then((data) => data)
+})
+
 
 const bookSlice = createSlice({
     name: "books",
@@ -79,6 +93,11 @@ const bookSlice = createSlice({
         },
         [getWishlistBooks.fulfilled](state, action){
             state.wishlistEntities = action.payload;
+        },
+        [deleteWishlistBook.fulfilled](state, action){
+            const deletedWishlistBook = action.meta.arg;
+            const remainingWishlistBooks = state.wishlistEntities.filter((b) => b.id !== deletedWishlistBook.id)
+            state.wishlistEntities = remainingWishlistBooks;
         }
     }
 })
