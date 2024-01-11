@@ -11,27 +11,7 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
     const handleClose = () => setShowModal(false);
     const dispatch = useDispatch()
 
-    // const [title, setTitle] = useState('') 
-    // const [writer, setWriter] = useState('')
-    // const [about, setAbout] = useState('')
-    // const [photoUrl, setPhotoUrl] = useState('')
-
-    // const book = {
-    //     user_id: currentUser.id,
-    //     title: title, 
-    //     author: writer, 
-    //     about: about, 
-    //     photo_url: photoUrl
-    // }
-
     const photoSrc = `https://covers.openlibrary.org/b/oclc/${isbn}-M.jpg`
-    // const addBook = () => {
-    //     setTitle(work.title)
-    //     setWriter(author)
-    //     work && work.description && work.description.value ? setAbout(work.description.value) : setAbout('No description available')
-    //     setPhotoUrl(photoSrc)
-    //     dispatch(submitBook(book))
-    // }
 
     const addBook = () => {
         const postedBook = {
@@ -58,9 +38,6 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
         console.log(wishlistBook)
         dispatch(submitBook(wishlistBook))
     }
-
-    // console.log(book)
-
 
     return (
         <>
