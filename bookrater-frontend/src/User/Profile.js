@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from './userSlice';
 import UsersBooks from './UsersBooks';
 import UsersWishlist from './UsersWishlist';
-import { getReadBooks } from '../Books/bookSlice';
+import { getReadBooks, getWishlistBooks } from '../Books/bookSlice';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/esm/Col';
 
 function Profile(){
 
-    const [wishlistBooks, setWishlistBooks] = useState([])
+    // const [wishlistBooks, setWishlistBooks] = useState([])
  
     const currentUser = useSelector((state) => state.users.currentUser);
     const dispatch = useDispatch()
@@ -19,6 +19,10 @@ function Profile(){
     useEffect(() => {
         dispatch(getReadBooks())
     }, [dispatch])
+    
+    useEffect(() => {
+        dispatch(getWishlistBooks())
+    }, [])
 
     const books = useSelector((state) => state.books.entities)
 
@@ -26,13 +30,15 @@ function Profile(){
         dispatch(getCurrentUser())
       }, [dispatch])
 
-    useEffect(() => {
-            fetch('/wishlistbooks')
-            .then(res => res.json())
-            .then(wishlistBooks => (setWishlistBooks(wishlistBooks)))
-    }, [])
+    // useEffect(() => {
+    //         fetch('/wishlistbooks')
+    //         .then(res => res.json())
+    //         .then(wishlistBooks => (setWishlistBooks(wishlistBooks)))
+    // }, [])
 
-    console.log(wishlistBooks)
+    const wishlistBooks = useSelector((state) => state.books.wishlistEntities)
+    const check = useSelector((state) => state)
+    console.log(check)
 
     const renderReadBooks = (books) =>
     currentUser &&
@@ -42,7 +48,6 @@ function Profile(){
       </Col>
     ));
 
-    
     const renderWishlistBooks = (wishlistBooks) =>
     currentUser &&
     wishlistBooks.map((b) => (
@@ -53,9 +58,6 @@ function Profile(){
 
     return(
         <>
-           <p>{currentUser ? currentUser.name : ' '}</p>
-            <p>{currentUser ? currentUser.about_me : ' '}</p>
-            <p>{currentUser ? currentUser.location : ' '}</p>
             <h1>Books I've Read</h1>
             <Container> 
                 <Row >
@@ -66,7 +68,7 @@ function Profile(){
             <h1>Wishlist</h1>
             <Container>
                 <Row >
-            {currentUser && renderWishlistBooks(wishlistBooks)}
+                    {currentUser && renderWishlistBooks(wishlistBooks)}
                 </Row>
             </Container>
         </>

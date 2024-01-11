@@ -6,6 +6,12 @@ export const getReadBooks = createAsyncThunk("books/getBooks", (book) => {
     .then((data) => data)
 })
 
+export const getWishlistBooks = createAsyncThunk("books/getWishlistBooks", (book) => {
+    return fetch('/wishlistbooks')
+    .then(res => res.json())
+    .then((data) => data)
+})
+
 export const submitBook = createAsyncThunk("books/submit", (book) => {
     return fetch("/submit", {
         method: "POST",
@@ -46,6 +52,7 @@ const bookSlice = createSlice({
     name: "books",
     initialState: {
         entities: [],
+        wishlistEntities: [],
         status: 'idle',
     } ,
     reducers: {
@@ -69,6 +76,9 @@ const bookSlice = createSlice({
         [getReadBooks.fulfilled](state, action){ 
             console.log(action.payload)
             state.entities = action.payload;
+        },
+        [getWishlistBooks.fulfilled](state, action){
+            state.wishlistEntities = action.payload;
         }
     }
 })
