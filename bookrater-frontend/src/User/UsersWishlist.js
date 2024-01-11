@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 import { useDispatch } from 'react-redux';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { deleteBook } from '../Books/bookSlice';
-import { deleteWishlistBook } from '../Books/bookSlice';
 
 function UsersWishlist({b}){
 
