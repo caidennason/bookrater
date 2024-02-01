@@ -25,9 +25,9 @@ function NavBar(){
         dispatch(getCurrentUser())
     }, [dispatch])
 
-    const signout = () => {
+    const signout = async () => {
         // console.log(currentUser, ' before logout from front end ')
-        dispatch(logout())
+        await dispatch(logout())
         navigate('/login')
         // console.log(currentUser, ' after logout from front end ')
     }
