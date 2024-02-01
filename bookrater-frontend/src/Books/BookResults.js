@@ -9,9 +9,9 @@ function BookResults({book}){
     const [bookKey, setBookKey] = useState('')
     const [showModal, setShowModal] = useState(false)
 
-    useEffect(() => {
-        console.log(work)
-    }, [work])
+    // useEffect(() => {
+    //     console.log(work)
+    // }, [work])
 
 
     const getKey = (e) => {

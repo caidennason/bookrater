@@ -54,10 +54,11 @@ export const login = createAsyncThunk("users/login", (user) => {
     .then((data) => data)
 })
 
-export const logout = createAsyncThunk("users/logout", (user) => {
+export const logout = createAsyncThunk("users/logout", () => {
     return fetch("/logout", {
         method: "DELETE"
     })
+
 })
 
 const userSlice = createSlice({
@@ -86,7 +87,9 @@ const userSlice = createSlice({
             state.currentUser = action.payload
         },
         [logout.fulfilled](state, action) {
+            console.log(state.currentUser, ' before the logout click ')
             state.currentUser = null
+            console.log(state.currentUser, ' after the logout click ')
         }
     } 
 })

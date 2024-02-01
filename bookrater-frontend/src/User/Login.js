@@ -16,13 +16,9 @@ function Login(){
     const currentUser = useSelector((state) => state.users.currentUser)
     const users = useSelector((state) => state.users.entities)
 
-    console.log(users)
-
     useEffect(() => {
         dispatch(getCurrentUser())
     }, [dispatch])
-
-    console.log(currentUser)
 
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -48,9 +44,7 @@ function Login(){
         .then((data) => {
             if (data.error) {
                 alert(data.error)
-                console.log(data.error)
             } else {
-                console.log('logged in')
                 navigate('/profile')
             }
         })

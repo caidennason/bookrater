@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Routes, Route } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -13,7 +13,6 @@ import Profile from "../User/Profile";
 import { logout } from "../User/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BookSearch from "../Books/BookSearch";
-import Spinner from 'react-bootstrap/Spinner';
 
 function NavBar(){
 
@@ -24,25 +23,14 @@ function NavBar(){
     const signout = () => {
         dispatch(logout())
         navigate('/login')
+        console.log(currentUser)
     }
-
-    const spinner = () => (
-        <Navbar bg="dark" data-bs-theme='dark'>
-        <Container>
-            <Navbar.Brand>
-        <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-        </Spinner>
-        </Navbar.Brand>
-        </Container>
-        </Navbar>
-    )
 
     return(
     <div>
-        {currentUser != null ? <Navbar bg="dark" data-bs-theme='dark'>
+        {<Navbar bg="dark" data-bs-theme='dark'>
         <Container>
-            {currentUser ? <Button onClick={signout}>Signout</Button> : ''}
+            {currentUser ? <Button onClick={signout}>Signout</Button> : null}
         </Container>
             <Container>
                 <Navbar.Brand href="/">Bookrater</Navbar.Brand>
@@ -54,7 +42,7 @@ function NavBar(){
                     {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : null}
                 </Nav>
             </Container>
-        </Navbar> : spinner() }
+        </Navbar> }
         <Routes>
             <Route path='/' element={<HomePage />}/>
             <Route path="/logout" element={<Logout />} />
