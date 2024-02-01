@@ -87,9 +87,9 @@ const userSlice = createSlice({
             state.currentUser = action.payload
         },
         [logout.fulfilled](state, action) {
-            console.log(state.currentUser, ' before the logout click ')
+            console.log(state.currentUser, ' before the logout click in the slice')
             state.currentUser = null
-            console.log(state.currentUser, ' after the logout click ')
+            console.log(state.currentUser, ' after the logout click in the slice')
         }
     } 
 })

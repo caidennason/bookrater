@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Routes, Route } from 'react-router-dom';
+import React, {useEffect} from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -13,6 +13,7 @@ import Profile from "../User/Profile";
 import { logout } from "../User/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import BookSearch from "../Books/BookSearch";
+import { getCurrentUser } from "../User/userSlice";
 
 function NavBar(){
 
@@ -20,10 +21,15 @@ function NavBar(){
     const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.users.currentUser)
 
+    useEffect(() => {
+        dispatch(getCurrentUser())
+    }, [dispatch])
+
     const signout = () => {
+        // console.log(currentUser, ' before logout from front end ')
         dispatch(logout())
         navigate('/login')
-        console.log(currentUser)
+        // console.log(currentUser, ' after logout from front end ')
     }
 
     return(

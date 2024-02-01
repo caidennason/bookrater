@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 
 function App() {
 
+  const navigate = useNavigate()
   const currentUser = useSelector((state) => state.users.currentUser)
   const dispatch = useDispatch()
 
@@ -15,8 +16,15 @@ function App() {
     dispatch(getCurrentUser())
   }, [dispatch])
 
+//   const signout = () => {
+//     console.log(currentUser, ' before logout from front end ')
+//     dispatch(logout())
+//     console.log(currentUser, ' after logout from front end ')
+// }
+
   return (
     <div>
+      {/* {currentUser ? <Button onClick={signout}>Signout</Button> : null} */}
       <NavBar />
     </div>
   );
