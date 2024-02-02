@@ -1,5 +1,5 @@
 # Bookrater
-- Welcome to Bookrater! Bookrater is a recreation of my first project at Flatiron School. The first project used JavaScript only, with no backend. Bookrater now allows you to create an account and keep track of your books. 
+- Welcome to Bookrater! Bookrater is a recreation of my first project at Flatiron School. The first project used JavaScript only, with no backend. Bookrater now allows you to create an account and keep track of your books, with a React frontend that uses the React Bootstrap library, and a Ruby on Rails backend. 
 
 # Installation
 - Clone the repository at: https://github.com/caidennason/bookrater

@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton';
 import { useDispatch } from 'react-redux';
 import { deleteBook } from '../Books/bookSlice';
+import { FaStar } from 'react-icons/fa';
+
+
 
 function UsersBooks({b}){
 
@@ -38,6 +41,9 @@ function UsersBooks({b}){
                     <Button onClick={toggleExpand}>
                         {expand ? 'See more' : 'See less'}
                     </Button>
+                    <br></br>
+                    <FaStar></FaStar>
+                    <br></br>
             </Card>
 
     )
