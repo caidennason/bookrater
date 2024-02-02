@@ -12,7 +12,8 @@ function UsersBooks({b}){
 
     const [expand, setExpand] = useState(true)
     const [rating, setRating] = useState(null)
-    console.log(rating)
+    const [hover, setHover] = useState(null)
+    console.log(b)
 
     const toggleExpand = () => {
         setExpand(!expand)
@@ -44,11 +45,9 @@ function UsersBooks({b}){
                         {expand ? 'See more' : 'See less'}
                     </Button>
                     <br></br>
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                    {b.wishlist == false ? <div style={{display: 'flex', justifyContent: 'center'}}>
                     {[...Array(5)].map((star, i) => {
-
                         const ratingValue = i + 1 
-
                         return (
                             <label style={{cursor: 'pointer'}}>
                                 <input 
@@ -58,11 +57,16 @@ function UsersBooks({b}){
                                 style={{display: 'none'}} 
                                 onClick={() => setRating(ratingValue)}
                                 />
-                                <FaStar size={25}/>
+                                <FaStar 
+                                size={25}
+                                color={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                                onMouseEnter={() => setHover(ratingValue)}
+                                onMouseLeave={() => setHover(null)}
+                                />
                             </label>
                         )
                     })}
-                    </div>
+                    </div> : ' '}
                     <br></br>
             </Card>
     )
