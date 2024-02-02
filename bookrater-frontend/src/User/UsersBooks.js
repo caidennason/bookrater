@@ -11,6 +11,8 @@ import { FaStar } from 'react-icons/fa';
 function UsersBooks({b}){
 
     const [expand, setExpand] = useState(true)
+    const [rating, setRating] = useState(null)
+    console.log(rating)
 
     const toggleExpand = () => {
         setExpand(!expand)
@@ -42,10 +44,27 @@ function UsersBooks({b}){
                         {expand ? 'See more' : 'See less'}
                     </Button>
                     <br></br>
-                    <FaStar></FaStar>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                    {[...Array(5)].map((star, i) => {
+
+                        const ratingValue = i + 1 
+
+                        return (
+                            <label style={{cursor: 'pointer'}}>
+                                <input 
+                                type='radio' 
+                                name='rating' 
+                                value={ratingValue} 
+                                style={{display: 'none'}} 
+                                onClick={() => setRating(ratingValue)}
+                                />
+                                <FaStar size={25}/>
+                            </label>
+                        )
+                    })}
+                    </div>
                     <br></br>
             </Card>
-
     )
 }
 
