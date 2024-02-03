@@ -47,6 +47,23 @@ export const deleteBook = createAsyncThunk("books/delete", (book) => {
     .then((data) => data)
 })
 
+export const rateBook = createAsyncThunk("books/update", (book) => {
+    return fetch("/rate", {
+        method: "PATCH", 
+        headers: {
+            "Accept": "application/json", 
+        }, 
+        body: JSON.stringify(book)
+    })
+    .then((res) => {
+        if (!res.ok) {
+            throw new Error("unable to rate")
+        }
+        res.json()
+    })
+    .then((data) => data)
+})
+
 const bookSlice = createSlice({
     name: "books",
     initialState: {

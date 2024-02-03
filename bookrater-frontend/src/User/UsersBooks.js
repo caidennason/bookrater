@@ -6,14 +6,11 @@ import { useDispatch } from 'react-redux';
 import { deleteBook } from '../Books/bookSlice';
 import { FaStar } from 'react-icons/fa';
 
-
-
 function UsersBooks({b}){
 
     const [expand, setExpand] = useState(true)
     const [rating, setRating] = useState(null)
     const [hover, setHover] = useState(null)
-    console.log(b)
 
     const toggleExpand = () => {
         setExpand(!expand)
@@ -22,7 +19,6 @@ function UsersBooks({b}){
     const dispatch = useDispatch()
 
     const handleBookDelete = () => {
-        console.log('checking', b)
         dispatch(deleteBook(b))
     }
 
