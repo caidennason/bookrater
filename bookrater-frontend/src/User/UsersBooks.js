@@ -34,6 +34,7 @@ function UsersBooks({b}){
             user_id : b.user_id, 
             wishlist : b.wishlist
         }
+        console.log(updatedBookWithRating)
         dispatch(rateBook(updatedBookWithRating))
     }
 

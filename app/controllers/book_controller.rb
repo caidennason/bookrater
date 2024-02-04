@@ -1,3 +1,5 @@
+require 'byebug'
+
 class BookController < ApplicationController
 
     def show
