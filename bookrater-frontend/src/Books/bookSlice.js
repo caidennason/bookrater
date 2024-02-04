@@ -108,7 +108,7 @@ const bookSlice = createSlice({
             console.log(' rate is pending from the slice ')
         }, 
         [rateBook.rejected](state, action){
-            console.log(' rate is rejected from the slice ')
+            console.log(action.meta.arg, ' rate is rejected from the slice ')
         }
     }
 })

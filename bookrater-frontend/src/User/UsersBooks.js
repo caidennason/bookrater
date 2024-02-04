@@ -22,9 +22,19 @@ function UsersBooks({b}){
         dispatch(deleteBook(b))
     }
 
-    const handleBookRating = (r, b) => {
+    const handleBookRating = (r) => {
         setRating(r)
-        dispatch(rateBook(b))
+        const updatedBookWithRating = {
+            about : b.about,
+            author : b.author, 
+            id : b.id, 
+            photo_url : b.photo_url, 
+            rating : rating, 
+            title : b.title, 
+            user_id : b.user_id, 
+            wishlist : b.wishlist
+        }
+        dispatch(rateBook(updatedBookWithRating))
     }
 
     return(
