@@ -100,6 +100,16 @@ const bookSlice = createSlice({
         [getWishlistBooks.fulfilled](state, action){
             state.wishlistEntities = action.payload;
         },
+        [rateBook.fulfilled](state, action){
+            // state.entities = action.payload
+            console.log(' rate is working from the slice ')
+        }, 
+        [rateBook.pending](state, action){
+            console.log(' rate is pending from the slice ')
+        }, 
+        [rateBook.rejected](state, action){
+            console.log(' rate is rejected from the slice ')
+        }
     }
 })
 

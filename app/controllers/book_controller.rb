@@ -29,6 +29,16 @@ class BookController < ApplicationController
             end
     end
 
+    def rate
+        book = Book.find_by(id: params[:id])
+        book.update(book_params)
+        if book.valid? && book.user_id == current_user.id
+            render json: book
+        else 
+            render json: {error: "Incorrect rating somehow"}, status: :unprocessable_entity
+        end
+    end
+
     private 
     def book_params
         params.permit(:id, :title, :author, :rating, :about, :photo_url, :user_id, :wishlist)

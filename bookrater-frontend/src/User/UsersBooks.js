@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton';
 import { useDispatch } from 'react-redux';
-import { deleteBook } from '../Books/bookSlice';
+import { deleteBook, rateBook } from '../Books/bookSlice';
 import { FaStar } from 'react-icons/fa';
 
 function UsersBooks({b}){
@@ -20,6 +20,11 @@ function UsersBooks({b}){
 
     const handleBookDelete = () => {
         dispatch(deleteBook(b))
+    }
+
+    const handleBookRating = (r, b) => {
+        setRating(r)
+        dispatch(rateBook(b))
     }
 
     return(
@@ -51,7 +56,7 @@ function UsersBooks({b}){
                                 name='rating' 
                                 value={ratingValue} 
                                 style={{display: 'none'}} 
-                                onClick={() => setRating(ratingValue)}
+                                onClick={() => handleBookRating(ratingValue)}
                                 />
                                 <FaStar 
                                 size={25}

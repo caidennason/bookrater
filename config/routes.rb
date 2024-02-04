@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "session#destroy"
   get '/books', to: "book#show"
   get '/wishlistbooks', to: "book#show_wishlist"
+  patch '/rate', to: "book#rate"
 
   post '/submit', to: "book#create"
   delete '/books/:id', to: "book#destroy"
