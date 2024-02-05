@@ -31,7 +31,7 @@ class BookController < ApplicationController
             end
     end
 
-    def rate
+    def update
         book = Book.find_by(id: params[:id])
         book.update(book_params)
         if book.valid? && book.user_id == current_user.id

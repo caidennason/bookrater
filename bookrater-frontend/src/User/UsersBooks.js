@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton';
 import { useDispatch } from 'react-redux';
-import { deleteBook, rateBook, getReadBooks } from '../Books/bookSlice';
+import { deleteBook, rateBook, readBookChange } from '../Books/bookSlice';
 import { FaStar } from 'react-icons/fa';
 
 function UsersBooks({b}){
@@ -39,6 +39,20 @@ function UsersBooks({b}){
         dispatch(rateBook(updatedBookWithRating))
     }
 
+    const handleReadChange = () => {
+        const updatedReadBook = {
+            id: b.id, 
+            title: b.title, 
+            author: b.author, 
+            rating: b.rating, 
+            about: b.about, 
+            user_id: b.user_id, 
+            photo_url: b.photo_url, 
+            whishlist: true
+        }
+        dispatch(readBookChange(updatedReadBook))
+    }
+
     return(
             <Card style={{width: '20rem'}}>
                 <CloseButton 
@@ -57,7 +71,7 @@ function UsersBooks({b}){
                     <Button onClick={toggleExpand}>
                         {expand ? 'See more' : 'See less'}
                     </Button>
-                    {b.wishlist ? <Button class="btn btn-success mt-3" variant="success" size="sm">Read it!</Button> : null}
+                    {b.wishlist ? <Button class="btn btn-success mt-3" variant="success" size="sm" onClick={handleReadChange}>Read it!</Button> : null}
                     <br></br>
                     {b.wishlist == false ? <div style={{display: 'flex', justifyContent: 'center'}}>
                     {[...Array(5)].map((star, i) => {

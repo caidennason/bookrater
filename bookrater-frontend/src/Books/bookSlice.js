@@ -48,7 +48,6 @@ export const deleteBook = createAsyncThunk("books/delete", (book) => {
 })
 
 export const rateBook = createAsyncThunk("books/update", (book) => {
-    console.log(book, ' this is the b object from the slice ')
     return fetch(`/books/${book.id}`, {
         method: "PATCH", 
         headers: {
@@ -61,14 +60,29 @@ export const rateBook = createAsyncThunk("books/update", (book) => {
         if (!res.ok) {
             throw new Error("unable to rate")
         }
-        console.log( ' this is the res from the slice', res)
         return res.json()
     })
     .then((data) => {
-        console.log(data, ' data from .then ')
-        console.log(book)
         return data
     })
+})
+
+export const readBookChange = createAsyncThunk("books/change", (book) => {
+    return fetch(`/books/${book.id}`, {
+        method: "PATCH", 
+        headers: {
+            "Accept": "application/json", 
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(book)
+    })
+    .then((res) => {
+        if (!res.ok) {
+            throw new Error("unable to change wishlist")
+        }
+        return res.json()
+    })
+    .then((data) => data)
 })
 
 const bookSlice = createSlice({
@@ -84,7 +98,6 @@ const bookSlice = createSlice({
     extraReducers: {
         [submitBook.fulfilled](state, action){
             state.entities.push(action.payload)
-            console.log('successfully sent a book to the backend', state)
         },
         [submitBook.rejected](state, action){
             console.log(action)
@@ -101,15 +114,12 @@ const bookSlice = createSlice({
             state.status = 'deleted';
         }, 
         [getReadBooks.fulfilled](state, action){ 
-            console.log(action.payload)
             state.entities = action.payload;
         },
         [getWishlistBooks.fulfilled](state, action){
             state.wishlistEntities = action.payload;
         },
         [rateBook.fulfilled](state, action){
-            // state.entities = action.payload
-            console.log(action.payload, ' rate is working from the slice ')
             const booksWithReviews = state.entities.map((b) => {
                 if (b.id === action.payload.id){
                     return action.payload
@@ -119,12 +129,24 @@ const bookSlice = createSlice({
             })
             state.entities = booksWithReviews
         }, 
-        [rateBook.pending](state, action){
-            console.log(' rate is pending from the slice ')
-
+        [readBookChange.fulfilled](state, action){
+            console.log('read change is working')
+            const readBook = state.wishlistEntities.map((b) => {
+                if (b.id === action.payload.id){
+                    return action.payload
+                } else {
+                    return b
+                }
+            })
+            const remainingWishListBooks = state.wishlistEntities.filter((b) => b.id !== action.payload.id)
+            state.wishlistEntities = remainingWishListBooks
+            state.entities.push(readBook)
         }, 
-        [rateBook.rejected](state, action){
-            console.log(action.meta.arg, ' rate is rejected from the slice ')
+        [readBookChange.pending](state, aciton){
+            console.log(' readBookChange is pending')
+        }, 
+        [readBookChange.rejected](state, action){
+            console.log( ' readBookChange is rejected')
         }
     }
 })
