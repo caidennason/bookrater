@@ -140,7 +140,7 @@ const bookSlice = createSlice({
             })
             const remainingWishListBooks = state.wishlistEntities.filter((b) => b.id !== action.payload.id)
             state.wishlistEntities = remainingWishListBooks
-            state.entities.push(readBook)
+            state.entities.push(action.payload)
         }, 
         [readBookChange.pending](state, aciton){
             console.log(' readBookChange is pending')

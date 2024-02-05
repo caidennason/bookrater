@@ -64,9 +64,9 @@ function UsersBooks({b}){
                 <Card.Body >
                     <Card.Title>{b.title}</Card.Title>
                         <Card.Subtitle>{b.author}</Card.Subtitle>
-                        <Card.Body>
+                        {/* <Card.Body>
                             {expand ? b.about.slice(0, 100) + '...' : b.about}
-                        </Card.Body>
+                        </Card.Body> */}
                 </Card.Body>
                     <Button onClick={toggleExpand}>
                         {expand ? 'See more' : 'See less'}
