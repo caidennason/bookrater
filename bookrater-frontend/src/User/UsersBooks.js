@@ -57,6 +57,7 @@ function UsersBooks({b}){
                     <Button onClick={toggleExpand}>
                         {expand ? 'See more' : 'See less'}
                     </Button>
+                    {b.wishlist ? <Button class="btn btn-success mt-3" variant="success" size="sm">Read it!</Button> : null}
                     <br></br>
                     {b.wishlist == false ? <div style={{display: 'flex', justifyContent: 'center'}}>
                     {[...Array(5)].map((star, i) => {
@@ -79,7 +80,7 @@ function UsersBooks({b}){
                             </label>
                         )
                     })}
-                    </div> : ' '}
+                    </div>  : null }
                     <br></br>
             </Card>
     )
