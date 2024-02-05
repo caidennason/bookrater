@@ -24,14 +24,15 @@ function UsersBooks({b}){
 
     const handleBookRating = (r) => {
         setRating(r)
+        console.log(r)
         const updatedBookWithRating = {
-            about : b.about,
-            author : b.author, 
             id : b.id, 
-            photo_url : b.photo_url, 
-            rating : r, 
             title : b.title, 
+            author : b.author, 
+            rating : r, 
+            about : b.about,
             user_id : b.user_id, 
+            photo_url : b.photo_url, 
             wishlist : b.wishlist
         }
         console.log(updatedBookWithRating)
@@ -65,8 +66,7 @@ function UsersBooks({b}){
                                 <input 
                                 type='radio' 
                                 name='rating' 
-                                // value={ratingValue} 
-                                value={b.rating}
+                                value={ratingValue} 
                                 style={{display: 'none'}} 
                                 onClick={() => handleBookRating(ratingValue)}
                                 />
