@@ -29,7 +29,7 @@ function UsersBooks({b}){
             author : b.author, 
             id : b.id, 
             photo_url : b.photo_url, 
-            rating : rating, 
+            rating : r, 
             title : b.title, 
             user_id : b.user_id, 
             wishlist : b.wishlist
@@ -66,7 +66,7 @@ function UsersBooks({b}){
                                 type='radio' 
                                 name='rating' 
                                 // value={ratingValue} 
-                                value={rating}
+                                value={b.rating}
                                 style={{display: 'none'}} 
                                 onClick={() => handleBookRating(ratingValue)}
                                 />
