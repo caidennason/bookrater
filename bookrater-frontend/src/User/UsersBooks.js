@@ -48,8 +48,9 @@ function UsersBooks({b}){
             about: b.about, 
             user_id: b.user_id, 
             photo_url: b.photo_url, 
-            whishlist: true
+            wishlist: false
         }
+        console.log(updatedReadBook)
         dispatch(readBookChange(updatedReadBook))
     }
 

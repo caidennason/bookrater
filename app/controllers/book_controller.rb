@@ -37,7 +37,7 @@ class BookController < ApplicationController
         if book.valid? && book.user_id == current_user.id
             render json: book
         else 
-            render json: {error: "Incorrect rating somehow"}, status: :unprocessable_entity
+            render json: {error: "Incorrect somehow"}, status: :unprocessable_entity
         end
     end
 

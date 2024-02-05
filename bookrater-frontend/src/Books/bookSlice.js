@@ -67,7 +67,8 @@ export const rateBook = createAsyncThunk("books/update", (book) => {
     })
 })
 
-export const readBookChange = createAsyncThunk("books/change", (book) => {
+export const readBookChange = createAsyncThunk("books/update", (book) => {
+    console.log(book)
     return fetch(`/books/${book.id}`, {
         method: "PATCH", 
         headers: {
@@ -82,7 +83,10 @@ export const readBookChange = createAsyncThunk("books/change", (book) => {
         }
         return res.json()
     })
-    .then((data) => data)
+    .then((data) => {
+        console.log(data)
+        return data
+    })
 })
 
 const bookSlice = createSlice({
@@ -130,7 +134,7 @@ const bookSlice = createSlice({
             state.entities = booksWithReviews
         }, 
         [readBookChange.fulfilled](state, action){
-            console.log('read change is working')
+            console.log(action.payload, 'read change is working')
             const readBook = state.wishlistEntities.map((b) => {
                 if (b.id === action.payload.id){
                     return action.payload
@@ -138,6 +142,7 @@ const bookSlice = createSlice({
                     return b
                 }
             })
+            console.log(readBook)
             const remainingWishListBooks = state.wishlistEntities.filter((b) => b.id !== action.payload.id)
             state.wishlistEntities = remainingWishListBooks
             state.entities.push(action.payload)
