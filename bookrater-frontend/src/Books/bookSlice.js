@@ -48,7 +48,7 @@ export const deleteBook = createAsyncThunk("books/delete", (book) => {
 })
 
 export const rateBook = createAsyncThunk("books/update", (book) => {
-    return fetch("/rate", {
+    return fetch(`/rate/${book.id}`, {
         method: "PATCH", 
         headers: {
             "Accept": "application/json", 
@@ -59,7 +59,7 @@ export const rateBook = createAsyncThunk("books/update", (book) => {
         if (!res.ok) {
             throw new Error("unable to rate")
         }
-        res.json()
+        return res.json()
     })
     .then((data) => data)
 })
@@ -103,18 +103,18 @@ const bookSlice = createSlice({
         [rateBook.fulfilled](state, action){
             // state.entities = action.payload
             console.log(action.payload, ' rate is working from the slice ')
-            // const booksWithReviews = state.entities.map((b) => {
-            //     if (b.id === action.payload.id){
-            //         return action.payload
-            //     } else {
-            //         return b
-            //     }
-            // })
-            // state.entities = booksWithReviews
+            const booksWithReviews = state.entities.map((b) => {
+                if (b.id === action.payload.id){
+                    return action.payload
+                } else {
+                    return b
+                }
+            })
+            state.entities = booksWithReviews
         }, 
         [rateBook.pending](state, action){
             console.log(' rate is pending from the slice ')
-            
+
         }, 
         [rateBook.rejected](state, action){
             console.log(action.meta.arg, ' rate is rejected from the slice ')

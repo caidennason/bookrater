@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useSelector} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton';
 import { useDispatch } from 'react-redux';
-import { deleteBook, rateBook } from '../Books/bookSlice';
+import { deleteBook, rateBook, getReadBooks } from '../Books/bookSlice';
 import { FaStar } from 'react-icons/fa';
 
 function UsersBooks({b}){
@@ -65,7 +65,8 @@ function UsersBooks({b}){
                                 <input 
                                 type='radio' 
                                 name='rating' 
-                                value={ratingValue} 
+                                // value={ratingValue} 
+                                value={rating}
                                 style={{display: 'none'}} 
                                 onClick={() => handleBookRating(ratingValue)}
                                 />
