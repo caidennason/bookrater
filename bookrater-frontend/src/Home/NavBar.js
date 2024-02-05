@@ -25,6 +25,8 @@ function NavBar(){
         dispatch(getCurrentUser())
     }, [dispatch])
 
+    console.log(currentUser)
+
     const signout = async () => {
         // console.log(currentUser, ' before logout from front end ')
         await dispatch(logout())
@@ -39,13 +41,13 @@ function NavBar(){
             {currentUser ? <Button onClick={signout}>Signout</Button> : null}
         </Container>
             <Container>
-                <Navbar.Brand href="/">Bookrater</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Bookrater</Navbar.Brand>
                 <Nav class-name="me-auto">
-                    {!currentUser ? <Nav.Link href="/login">Login</Nav.Link> : null}
-                    {!currentUser ? <Nav.Link href="/signup">Signup</Nav.Link> : null}
-                    <Nav.Link href="/homepage">Home</Nav.Link>
-                    {currentUser ? <Nav.Link href="/profile">{currentUser.name}'s Profile</Nav.Link> : null}
-                    {currentUser ? <Nav.Link href="/booksearch">Book Search</Nav.Link> : null}
+                    {!currentUser ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : null}
+                    {!currentUser ? <Nav.Link as={Link} to="/signup">Signup</Nav.Link> : null}
+                    <Nav.Link as={Link} to="/homepage">Home</Nav.Link>
+                    {currentUser ? <Nav.Link as={Link} to="/profile">{currentUser.name}'s Profile</Nav.Link> : null}
+                    {currentUser ? <Nav.Link as={Link} to="/booksearch">Book Search</Nav.Link> : null}
                 </Nav>
             </Container>
         </Navbar> }
