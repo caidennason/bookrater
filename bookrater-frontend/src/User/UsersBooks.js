@@ -72,7 +72,7 @@ function UsersBooks({b}){
                                 />
                                 <FaStar 
                                 size={25}
-                                color={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                                color={ratingValue <= (hover || b.rating) ? '#ffc107' : '#e4e5e9'}
                                 onMouseEnter={() => setHover(ratingValue)}
                                 onMouseLeave={() => setHover(null)}
                                 />
