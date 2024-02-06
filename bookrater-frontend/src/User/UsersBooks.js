@@ -55,7 +55,7 @@ function UsersBooks({b}){
     }
 
     return(
-            <Card style={{width: '20rem'}}>
+            <Card style={{width: '20rem'}} className="bg-light rounded shadow px-2">
                 <CloseButton 
                 style={{ marginLeft: 'auto'}} 
                 onClick={(e) => {
