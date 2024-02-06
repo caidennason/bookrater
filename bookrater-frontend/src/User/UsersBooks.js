@@ -65,13 +65,11 @@ function UsersBooks({b}){
                 <Card.Body >
                     <Card.Title>{b.title}</Card.Title>
                         <Card.Subtitle>{b.author}</Card.Subtitle>
-                        {/* <Card.Body>
-                            {expand ? b.about.slice(0, 100) + '...' : b.about}
-                        </Card.Body> */}
+                        <Card.Body>
+                            {expand && b.about !== 'No description available' ? b.about.slice(0, 25) + '...' : b.about}
+                        </Card.Body>
                 </Card.Body>
-                    <Button onClick={toggleExpand}>
-                        {expand ? 'See more' : 'See less'}
-                    </Button>
+                    {b.about !== 'No description available' ? <Button variant="outline-primary" onClick={toggleExpand}>{expand ? 'See more' : 'See less'}</Button> : null}
                     <br></br>
                     {b.wishlist == false ? <div style={{display: 'flex', justifyContent: 'center'}}>
                     {[...Array(5)].map((star, i) => {

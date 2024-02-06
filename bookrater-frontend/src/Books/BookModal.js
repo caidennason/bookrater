@@ -57,8 +57,6 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
                     Add it to the wishlist!
                 </Button>
                 <br></br>
-                <CloseButton onClick={handleClose}>
-                </CloseButton>
             </Modal.Footer>
         </Modal>
         </>
