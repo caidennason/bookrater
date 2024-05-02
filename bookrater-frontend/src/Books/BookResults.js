@@ -1,24 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import BookModal from './BookModal';
+import Spinner from 'react-bootstrap/Spinner';
 
-function BookResults({book}){
+function BookResults({book, loading}){
     console.log(book)
 
     const [work, setWork] = useState('')
     const [bookKey, setBookKey] = useState('')
     const [showModal, setShowModal] = useState(false)
 
-    // useEffect(() => {
-    //     console.log(work)
-    // }, [work])
-
+    console.log(loading)
 
     const getKey = (e) => {
         setBookKey(book.key)
         getWork(book.key)
         setShowModal(true)
     }
+
+    console.log(loading)
 
     const getWork = async (bookKey) => {
         if (bookKey) {
@@ -31,9 +31,11 @@ function BookResults({book}){
         }
     }
 
+    console.log(loading)
+
     return(
         <>
-        <div>
+        {!loading ? (<div>
         <Card style={{width: '18rem'}} onClick={(getKey)}>
             <Card.Body>
                 <Card.Title>{book.title}</Card.Title>
@@ -42,7 +44,7 @@ function BookResults({book}){
                 )}
             </Card.Body>
         </Card>
-        </div>
+        </div>) : Spinner}
         <BookModal 
         isbn={book.oclc}
         author={book.author_name && book.author_name[0]} 
