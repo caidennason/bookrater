@@ -24,6 +24,7 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
         };
         console.log(postedBook)
         dispatch(submitBook(postedBook));
+        setShowModal(false)
     }
 
     const addToWishlist = () => {
@@ -37,6 +38,7 @@ function BookModal({showModal, setShowModal, work, author, isbn}){
         }
         console.log(wishlistBook)
         dispatch(submitBook(wishlistBook))
+        setShowModal(false)
     }
 
     return (

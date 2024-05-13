@@ -4,21 +4,16 @@ import BookModal from './BookModal';
 import Spinner from 'react-bootstrap/Spinner';
 
 function BookResults({book, loading}){
-    console.log(book)
 
     const [work, setWork] = useState('')
     const [bookKey, setBookKey] = useState('')
     const [showModal, setShowModal] = useState(false)
-
-    console.log(loading)
 
     const getKey = (e) => {
         setBookKey(book.key)
         getWork(book.key)
         setShowModal(true)
     }
-
-    console.log(loading)
 
     const getWork = async (bookKey) => {
         if (bookKey) {
@@ -30,8 +25,6 @@ function BookResults({book, loading}){
             console.log('hold up wait a minute')
         }
     }
-
-    console.log(loading)
 
     return(
         <>
