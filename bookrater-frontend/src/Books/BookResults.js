@@ -22,7 +22,7 @@ function BookResults({book, loading}){
         .then((res) => res.json())
         .then((b) => setWork(b))
         } else {
-            console.log('hold up wait a minute')
+            console.log('getWork is not working')
         }
     }
 

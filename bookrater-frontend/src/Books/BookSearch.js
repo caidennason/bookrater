@@ -42,7 +42,9 @@ function BookSearch(){
             return res.json()
         })
         .then((data) => {
-            setBooks(data.docs.slice(0, 5));
+            // Setting books first 20 books for pagination
+            // setBooks(data.docs.slice(0, 5));
+            setBooks(data.docs.slice(0, 20));
             if (data.docs.length === 0) {
                 handleErrorModal();
             }
