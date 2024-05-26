@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookResults from './BookResults';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SearchErrorModal from './SearchErrorModal';
 import Spinner from 'react-bootstrap/esm/Spinner';
+import PaginationComponent from './PaginationComponent';
 
 function BookSearch(){
 
@@ -12,6 +13,14 @@ function BookSearch(){
     const [books, setBooks] = useState(null)
     const [loading, setLoading] = useState(false)
     const [showErrorModal, setErrorModal] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+
+    // useEffect(() => {
+    //     if (title){
+    //         findBook()
+    //     }
+    // }, [currentPage])
 
     const handleErrorModal = () => {
         setErrorModal(!showErrorModal)
@@ -43,8 +52,11 @@ function BookSearch(){
         })
         .then((data) => {
             // Setting books first 20 books for pagination
-            // setBooks(data.docs.slice(0, 5));
-            setBooks(data.docs.slice(0, 20));
+            setBooks(data.docs.slice(0, 5));
+            // const totalBooks = data.numFound;
+            // const booksPerPage = 20;
+            // setBooks(data.docs.slice(0, booksPerPage));
+            // setTotalPages(Math.ceil(totalBooks / booksPerPage));
             if (data.docs.length === 0) {
                 handleErrorModal();
             }
@@ -58,6 +70,7 @@ function BookSearch(){
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setCurrentPage(1)
         findBook()
         setTitle('')
         setAuthor('')
@@ -91,6 +104,11 @@ function BookSearch(){
             <SearchErrorModal handleErrorModal={handleErrorModal} showErrorModal={showErrorModal}/>
             </>
         )}
+        {/* <PaginationComponent
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
+        /> */}
         {loading ? (
             <>
             <Spinner/>
